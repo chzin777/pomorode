@@ -1,15 +1,16 @@
 /* ============================================================
    A RODA
 
-   Aro Mugen M7 com pneu, em glTF. A versão anterior montava a roda por
+   Roda aro 15 com pneu, em glTF. A versão anterior montava a peça por
    geometria — cilindros, um trapézio extrudado cinco vezes — e lia
    como roda, mas nunca como ESTA roda. Um modelo de verdade traz o
    desenho do raio, o rebaixo do aro e a parede do pneu, que é
    exatamente o que uma loja de roda vende.
 
-   O arquivo chega com um pedestal de exposição (o nó "Plane", material
-   "Stand"). Ele sai: a cena tem chão próprio, e um segundo chão dentro
-   do modelo apareceria como uma tábua flutuando no fosso.
+   As texturas do arquivo não são tocadas: nenhum material é
+   reconfigurado aqui. Se algum modelo trouxer pedestal de exposição
+   junto, ele sai pelo nome — a cena tem chão próprio, e um segundo
+   apareceria como tábua flutuando no fosso.
 
    NADA é assumido sobre orientação ou escala. Uma roda é um disco:
    entre as três medidas da caixa que a envolve, a menor é sempre o
@@ -162,16 +163,11 @@ export default function Roda({ className }) {
         });
         paraTirar.forEach((o) => o.removeFromParent());
 
-        /* o metal precisa enxergar o ambiente para deixar de ser preto */
-        cena.traverse((o) => {
-          if (!o.isMesh) return;
-          const mats = Array.isArray(o.material) ? o.material : [o.material];
-          mats.forEach((m) => {
-            if (!m) return;
-            m.envMapIntensity = 1.15;
-            m.needsUpdate = true;
-          });
-        });
+        /* Os materiais ficam exatamente como vieram no arquivo. O
+           ambiente de estúdio da cena já alcança o metal por
+           scene.environment; mexer em envMapIntensity ou em qualquer
+           mapa aqui mudaria a textura do modelo, e ela é para ficar
+           intacta. */
 
         /* --- alinhamento: a menor medida da caixa é o eixo do cubo --- */
         const interno = new THREE.Group();

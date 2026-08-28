@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
+import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
 import { SERVICOS, MARCA } from '../dados.js';
 
 /* ============================================================
@@ -19,8 +20,18 @@ import { SERVICOS, MARCA } from '../dados.js';
    recebe o papel reconhece a linha que leu aqui.
    ============================================================ */
 
+/* As peças desta seção são as que ela vende: a bateria abre a lista, o
+   óleo é o carro-chefe da casa. Ficam nas margens, onde o texto não
+   passa, e apagadas onde passa. */
+const PECAS = [
+  { peca: 'bateria', x: '-6%', y: '4%', w: '20%', mov: 0.5, rot: -12, op: 0.52, bl: 0, balanca: 'a' },
+  { peca: 'oleo', x: '86%', y: '30%', w: '15%', mov: 1.1, rot: 14, op: 0.66, bl: 0, balanca: 'b' },
+  { peca: 'aditivo', x: '78%', y: '82%', w: '12%', mov: 0.8, rot: -8, op: 0.52, bl: 1 },
+];
+
 export default function Servicos() {
   const raiz = useRef(null);
+  useFlutuantes(raiz);
 
   useGSAP(
     () => {
@@ -56,6 +67,8 @@ export default function Servicos() {
 
   return (
     <section className="secao faixa-clara" id="servicos" ref={raiz}>
+      <Flutuantes pecas={PECAS} />
+
       <div className="dentro">
         <div className="sv-topo">
           <p className="rotulo surge">

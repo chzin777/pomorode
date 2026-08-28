@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
 import CurvedLoop from '../lib/rb/CurvedLoop.jsx';
 import { Estrelas } from '../components/Marca.jsx';
+import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
 import { DEPOIMENTOS, PROVA } from '../dados.js';
 
 /* ============================================================
@@ -12,8 +13,17 @@ import { DEPOIMENTOS, PROVA } from '../dados.js';
    serviço, que amarra o depoimento à lista que a pessoa acabou de ler.
    ============================================================ */
 
+/* O pneu grande atravessando a seção por baixo dos depoimentos: é a
+   peça mais reconhecível do catálogo e a única que aguenta ser cortada
+   pela borda e continuar legível. */
+const PECAS = [
+  { peca: 'pneu', x: '-12%', y: '12%', w: '34%', mov: 0.45, rot: -6, op: 0.48, bl: 1, balanca: 'a' },
+  { peca: 'lampada', x: '90%', y: '4%', w: '13%', mov: 1.2, rot: 28, op: 0.63, bl: 0, balanca: 'b' },
+];
+
 export default function Prova() {
   const raiz = useRef(null);
+  useFlutuantes(raiz);
 
   useGSAP(
     () => {
@@ -49,13 +59,15 @@ export default function Prova() {
 
   return (
     <section className="secao faixa-ceu" id="prova" ref={raiz}>
+      <Flutuantes pecas={PECAS} />
+
       <div className="dentro">
         <div className="pr-topo">
           <div>
             <p className="rotulo surge">
               google <b>—</b> {PROVA.nota} de 5
             </p>
-            <h2 className="titulo surge" style={{ marginTop: 16 }}>
+            <h2 className="titulo surge" style={{ marginTop: 0.9 }}>
               cinco das <em>{PROVA.avaliacoes}</em>, na íntegra.
             </h2>
           </div>
@@ -64,7 +76,7 @@ export default function Prova() {
             <b>{PROVA.nota}</b>
             <div>
               <Estrelas />
-              <p className="rotulo" style={{ marginTop: 6 }}>
+              <p className="rotulo" style={{ marginTop: 0.9 }}>
                 {PROVA.avaliacoes} avaliações
               </p>
             </div>

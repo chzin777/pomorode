@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { ArrowUpRight, BellRing, CalendarDays, FileText, Link2, Receipt, Users } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
+import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
 import { SISTEMA_PONTOS } from '../dados.js';
 
 /* ============================================================
@@ -16,8 +17,14 @@ import { SISTEMA_PONTOS } from '../dados.js';
 
 const ICONE = [CalendarDays, Users, FileText, Receipt, BellRing, Link2];
 
+const PECAS = [
+  { peca: 'bateria', x: '84%', y: '-8%', w: '19%', mov: 0.7, rot: 9, op: 0.48, bl: 0, balanca: 'b' },
+  { peca: 'oleo', x: '-5%', y: '64%', w: '13%', mov: 1.1, rot: -18, op: 0.52, bl: 0, balanca: 'a' },
+];
+
 export default function Bancada() {
   const raiz = useRef(null);
+  useFlutuantes(raiz);
 
   useGSAP(
     () => {
@@ -51,10 +58,12 @@ export default function Bancada() {
 
   return (
     <section className="secao faixa-clara" id="bancada" ref={raiz}>
+      <Flutuantes pecas={PECAS} />
+
       <div className="dentro bc-grade">
         <div>
           <p className="rotulo surge">a oficina por dentro</p>
-          <h2 className="titulo surge" style={{ marginTop: 16 }}>
+          <h2 className="titulo surge" style={{ marginTop: 0.9 }}>
             a agenda dos boxes não vive num <em>caderno</em>.
           </h2>
 

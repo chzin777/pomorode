@@ -290,6 +290,19 @@
   overflow: hidden;
   background: var(--ceu);
 }
+/* A oficina de verdade atrás do céu. Não é papel de parede solto: é o
+   lugar onde o carro vai parar. Entra em baixa opacidade sobre a cor
+   chapada, porque o preto do título continua tendo que ganhar dela —
+   é a única coisa aqui que não pode falhar. */
+.cp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('/cena/oficina.webp') center 62% / cover no-repeat;
+  opacity: 0.34;
+  pointer-events: none;
+}
 /* as três listras do logo, deitadas na divisa das duas metades: é o
    único lugar onde o amarelo aparece grande, e mesmo assim em 6px */
 .cp::after {
@@ -669,7 +682,21 @@
 
 /* ============================================================
    PROVA — 1.304 avaliações, cinco em voz alta
+
+   O fundo é a parede de rodas da loja. As vozes vêm em cartão branco
+   opaco justamente por causa dela: texto direto sobre foto é o jeito
+   mais rápido de tornar um depoimento ilegível.
    ============================================================ */
+
+#prova::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('/cena/rodas.webp') center / cover no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+}
 
 .pr-topo {
   display: flex;
@@ -1131,5 +1158,106 @@
   .js .surge {
     opacity: 1;
     translate: none;
+  }
+}
+
+/* ============================================================
+   AS PEÇAS FLUTUANTES
+
+   Bateria, lâmpada, pneu, aditivo e óleo atravessam a página em
+   planos diferentes. O invólucro POSICIONA e ginga; a imagem ANIMA no
+   paralaxe. Com posição e transform no mesmo elemento, o CSS e o GSAP
+   disputam a mesma propriedade e a peça sai do lugar.
+
+   Quem passa atrás de texto vai apagada e desfocada — declarado peça a
+   peça, não adivinhado. Legibilidade ganha de efeito toda vez.
+   ============================================================ */
+
+/* Elas passam NA FRENTE do conteúdo, não atrás: peça no fundo vira
+   textura de papel de parede e some. Na frente ela cruza a seção como
+   objeto de verdade — e por isso o invólucro não recebe clique nenhum,
+   senão viraria uma parede invisível por cima dos links. */
+.flutuantes {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fl {
+  position: absolute;
+  display: block;
+  width: var(--w);
+  rotate: var(--rot, 0deg);
+}
+.fl img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: var(--op, 0.3);
+  filter: blur(var(--bl, 0px)) drop-shadow(0 30px 40px rgba(16, 18, 21, 0.35));
+  will-change: transform;
+}
+
+/* dois gingados de tempos diferentes: peça parada numa cena com
+   movimento denuncia que é colagem */
+.fl-a {
+  animation: ginga-a 11s var(--ease) infinite;
+}
+.fl-b {
+  animation: ginga-b 15s var(--ease) infinite;
+}
+@keyframes ginga-a {
+  0%,
+  100% {
+    rotate: var(--rot, 0deg);
+  }
+  50% {
+    rotate: calc(var(--rot, 0deg) + 3.5deg);
+  }
+}
+@keyframes ginga-b {
+  0%,
+  100% {
+    rotate: var(--rot, 0deg);
+  }
+  50% {
+    rotate: calc(var(--rot, 0deg) - 4.5deg);
+  }
+}
+
+/* toda seção vira palco: as peças ficam no fundo, o conteúdo por cima */
+.secao {
+  position: relative;
+}
+.secao > .dentro {
+  position: relative;
+  z-index: 1;
+}
+
+/* na abertura elas passam por cima da chapa e por baixo do cartão */
+.abertura .flutuantes {
+  z-index: 1;
+}
+.ab-centro {
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fl-a,
+  .fl-b {
+    animation: none;
+  }
+}
+
+/* em tela estreita sobra pouco fundo livre: fica só a peça de cada
+   seção que não encosta em texto */
+@media (max-width: 760px) {
+  .fl:not(.fl-fica) {
+    display: none;
+  }
+  .fl-fica img {
+    opacity: calc(var(--op, 0.3) * 0.7);
   }
 }

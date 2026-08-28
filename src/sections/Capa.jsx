@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
 import Roda from '../lib/Roda.jsx';
+import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
 import { Arco, Estrelas } from '../components/Marca.jsx';
 import { MARCA, PROVA } from '../dados.js';
 
@@ -23,9 +24,22 @@ import { MARCA, PROVA } from '../dados.js';
    removidos pela limpeza da primeira, nunca voltariam.
    ============================================================ */
 
+/* No hero as peças entram pelas bordas e cruzam a divisa das duas
+   metades: é o que dá profundidade sem tapar o título, que ocupa o
+   miolo da coluna da esquerda. Elas seguem o ponteiro junto com o
+   resto da cena, por isso carregam data-plano. */
+const PECAS = [
+  { peca: 'lampada', x: '-5%', y: '6%', w: '13%', mov: 1.2, rot: 26, op: 0.85, balanca: 'b' },
+  { peca: 'aditivo', x: '30%', y: '80%', w: '11%', mov: 1, rot: -14, op: 0.8, balanca: 'a' },
+  { peca: 'bateria', x: '-8%', y: '68%', w: '20%', mov: 0.6, rot: 10, op: 0.75 },
+  { peca: 'oleo', x: '92%', y: '12%', w: '12%', mov: 1.1, rot: -20, op: 0.8, balanca: 'b' },
+];
+
 export default function Capa() {
   const raiz = useRef(null);
   const entrou = useRef(false);
+
+  useFlutuantes(raiz, 18);
 
   useGSAP(
     () => {
@@ -41,10 +55,17 @@ export default function Capa() {
              que é do Club GSAP; escala a partir do meio dá o mesmo
              gesto sem plugin pago. */
           .from('.cp-arco', { scaleX: 0, opacity: 0, transformOrigin: '50% 100%', duration: 0.8 }, 0.7)
-          .from('.cp-sub, .cp-acoes, .cp-prova', { y: 18, opacity: 0, duration: 0.75, stagger: 0.08 }, 0.5);
+          .from('.cp-sub, .cp-acoes, .cp-prova', { y: 18, opacity: 0, duration: 0.75, stagger: 0.08 }, 0.5)
+          .from('.cp-pecas .fl', { opacity: 0, scale: 0.86, duration: 0.9, stagger: 0.08 }, 0.35);
       }
 
       /* --- ponteiro: a cena responde, o texto responde menos --- */
+      /* as peças entram na conta pelo próprio data-mov, convertido em
+         plano: quem anda mais no scroll anda mais no ponteiro também */
+      gsap.utils.toArray('.cp-pecas .fl', raiz.current).forEach((el) => {
+        el.dataset.plano = el.querySelector('img')?.dataset.mov ?? 0.6;
+      });
+
       const alvos = gsap.utils.toArray('[data-plano]', raiz.current).map((el) => ({
         el,
         f: Number(el.dataset.plano),
@@ -154,6 +175,8 @@ export default function Capa() {
         <Arco className="cp-moldura" />
         <Roda className="cp-roda" />
       </div>
+
+      <Flutuantes pecas={PECAS} className="cp-pecas" />
 
       {/* O indicador é filho da SEÇÃO, não da cena: dentro da metade
           escura ele centralizava na metade e lia como se estivesse

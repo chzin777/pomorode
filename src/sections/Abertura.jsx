@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap, useGSAP, prefersReduced, pausarRolagem } from '../lib/anim.js';
+import Flutuantes from '../components/Flutuantes.jsx';
 import { Marca, Arco } from '../components/Marca.jsx';
 import { MARCA } from '../dados.js';
 
@@ -24,6 +25,16 @@ import { MARCA } from '../dados.js';
 const ESPERA = 1.5;
 /** quanto dura o afastamento das duas chapas */
 const SAIDA = 1.05;
+
+/* Na cortina as peças passam por cima da chapa e por baixo do cartão.
+   Elas saem junto com o centro, antes de a chapa subir: peça sobrando
+   sobre a página já aberta denunciaria que a cortina é uma camada. */
+const PECAS = [
+  { peca: 'pneu', x: '-14%', y: '4%', w: '30%', mov: 0.5, rot: -8, op: 0.5, balanca: 'a' },
+  { peca: 'bateria', x: '80%', y: '62%', w: '26%', mov: 0.8, rot: 12, op: 0.45, balanca: 'b' },
+  { peca: 'lampada', x: '76%', y: '-6%', w: '16%', mov: 1, rot: 30, op: 0.4, balanca: 'b' },
+  { peca: 'aditivo', x: '4%', y: '70%', w: '15%', mov: 0.9, rot: 16, op: 0.45, balanca: 'a' },
+];
 
 export default function Abertura({ aoFechar }) {
   const raiz = useRef(null);
@@ -112,7 +123,8 @@ export default function Abertura({ aoFechar }) {
       .from('.ab-nome', { y: 26, opacity: 0, duration: 0.8 }, 0.12)
       /* o arco se desenha: a assinatura da marca sendo escrita */
       .to('.ab-marca path', { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' }, 0.2)
-      .from('.ab-rot', { opacity: 0, duration: 0.6 }, 0.5);
+      .from('.ab-rot', { opacity: 0, duration: 0.6 }, 0.5)
+      .from('.abertura .fl', { opacity: 0, scale: 0.8, duration: 0.9, stagger: 0.07 }, 0);
   }, []);
 
   /* --- a saída. Depende de `saindo`, que muda depois do duplo
@@ -122,7 +134,7 @@ export default function Abertura({ aoFechar }) {
       if (!saindo || prefersReduced()) return;
       gsap
         .timeline({ defaults: { ease: 'expo.inOut', duration: SAIDA } })
-        .to('.ab-centro', { opacity: 0, y: -18, duration: 0.45, ease: 'power2.in' }, 0)
+        .to('.ab-centro, .abertura .fl', { opacity: 0, y: -18, duration: 0.45, ease: 'power2.in' }, 0)
         .to('.ab-chapa.cima', { yPercent: -100 }, 0.05)
         .to('.ab-chapa.baixo', { yPercent: 100 }, 0.05);
     },
@@ -133,6 +145,8 @@ export default function Abertura({ aoFechar }) {
     <div className="abertura" ref={raiz} data-fim={fim ? '1' : '0'} aria-hidden="true">
       <div className="ab-chapa cima" />
       <div className="ab-chapa baixo" />
+
+      <Flutuantes pecas={PECAS} />
 
       <div className="ab-centro">
         <Marca className="ab-simbolo" />

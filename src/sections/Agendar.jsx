@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { AtSign, Clock, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
+import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
 import { HORARIOS, MARCA } from '../dados.js';
 
 /* ============================================================
@@ -12,8 +13,15 @@ import { HORARIOS, MARCA } from '../dados.js';
    ninguém abre.
    ============================================================ */
 
+const PECAS = [
+  { peca: 'aditivo', x: '-4%', y: '10%', w: '15%', mov: 0.9, rot: 12, op: 0.59, bl: 0, balanca: 'a' },
+  { peca: 'lampada', x: '46%', y: '76%', w: '11%', mov: 1.3, rot: -24, op: 0.52, bl: 0, balanca: 'b' },
+  { peca: 'pneu', x: '80%', y: '58%', w: '26%', mov: 0.4, rot: 8, op: 0.41, bl: 1 },
+];
+
 export default function Agendar() {
   const raiz = useRef(null);
+  useFlutuantes(raiz);
 
   useGSAP(
     () => {
@@ -33,10 +41,12 @@ export default function Agendar() {
 
   return (
     <section className="secao faixa-gelo" id="agendar" ref={raiz}>
+      <Flutuantes pecas={PECAS} />
+
       <div className="dentro ag-grade">
         <div>
           <p className="rotulo surge">onde estamos</p>
-          <h2 className="titulo surge" style={{ marginTop: 16 }}>
+          <h2 className="titulo surge" style={{ marginTop: 0.9 }}>
             centro de pomerode, com <em>vaga no pátio</em>.
           </h2>
 
