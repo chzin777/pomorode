@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Vídeos de usuário: 7Mbps do CDN deles. Servem localmente, mas não vão
+# para o repositório — quando forem usados, entram comprimidos ou por URL.
+public/video/ugc-*.mp4
+.vercel

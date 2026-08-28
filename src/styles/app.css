@@ -1,0 +1,1160 @@
+/* As seções da landing. Os tokens, as faixas e as primitivas moram em
+   tokens.css, que a bancada também carrega — uma fonte de verdade para
+   as duas páginas. */
+
+@import './tokens.css';
+
+/* ============================================================
+   ABERTURA — o elevador subindo
+
+   Duas metades de chapa que se afastam na vertical, com o arco
+   desenhando-se no meio. Um fade diria nada; a oficina abre o portão e
+   levanta o carro, então a página abre assim.
+   ============================================================ */
+
+.abertura {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+.abertura[data-fim='1'] {
+  display: none;
+}
+
+.ab-chapa {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: linear-gradient(180deg, #0d47bd, #072f8a);
+  will-change: transform;
+}
+.ab-chapa.cima {
+  top: 0;
+}
+.ab-chapa.baixo {
+  bottom: 0;
+  background: linear-gradient(0deg, #0d47bd, #072f8a);
+}
+/* o vinco de chapa dobrada, onde as metades se encostam */
+.ab-chapa.cima::after,
+.ab-chapa.baixo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.ab-chapa.cima::after {
+  bottom: 0;
+}
+.ab-chapa.baixo::after {
+  top: 0;
+}
+
+.ab-centro {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  text-align: center;
+  padding: 0 24px;
+}
+.ab-marca {
+  width: clamp(120px, 22vw, 190px);
+}
+.ab-marca path {
+  stroke-width: 4;
+  stroke-dasharray: 240;
+  stroke-dashoffset: 240;
+}
+.ab-simbolo {
+  width: clamp(46px, 7vw, 64px);
+  color: #fff;
+}
+.ab-nome {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.5rem, 4.6vw, 2.9rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  text-transform: lowercase;
+  color: #fff;
+}
+.ab-rot {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============================================================
+   TARJA — a esteira de afirmações
+   ============================================================ */
+
+.tarja {
+  position: relative;
+  z-index: 40;
+  height: var(--h-tarja);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--grafite);
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.tarja-trilho {
+  display: flex;
+  width: max-content;
+  animation: correr 34s linear infinite;
+}
+.tarja-trilho span {
+  display: flex;
+  flex-shrink: 0;
+}
+.tarja b {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding-right: 22px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.tarja b i {
+  font-style: normal;
+  color: var(--vermelho);
+}
+@keyframes correr {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarja-trilho {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   NAV — pílula flutuante que troca de pele por faixa
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: calc(var(--h-tarja) + 12px);
+  left: 50%;
+  z-index: 50;
+  width: min(1280px, calc(100% - 24px));
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 10px 10px 18px;
+  border-radius: var(--r-pill);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(12, 17, 22, 0.66);
+  -webkit-backdrop-filter: blur(16px) saturate(1.35);
+  backdrop-filter: blur(16px) saturate(1.35);
+  color: #fff;
+  transition: background 0.5s var(--ease), border-color 0.5s var(--ease),
+    color 0.5s var(--ease), translate 0.45s var(--ease);
+}
+.nav[data-claro='1'] {
+  background: rgba(255, 255, 255, 0.84);
+  border-color: var(--linha-escura);
+  color: var(--sobre-claro);
+}
+.nav[data-preso='1'] {
+  top: 12px;
+}
+
+.nv-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.nv-marca svg {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.nv-nome {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 0.92rem;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  text-transform: lowercase;
+}
+.nv-sub {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.nv-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.nv-links a {
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  font-size: 0.92rem;
+  font-weight: 500;
+  opacity: 0.76;
+  transition: opacity 0.25s, background 0.25s;
+}
+.nv-links a:hover {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+.nv-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav .btn {
+  padding: 0.7rem 1.25rem;
+  font-size: 0.9rem;
+}
+.nv-burger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-pill);
+  border: 1px solid currentColor;
+  opacity: 0.5;
+}
+
+.nv-gaveta {
+  position: fixed;
+  z-index: 49;
+  top: calc(var(--h-tarja) + 78px);
+  left: 12px;
+  right: 12px;
+  display: grid;
+  gap: 2px;
+  padding: 10px;
+  border-radius: var(--r);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(12, 17, 22, 0.96);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  color: #fff;
+}
+.nv-gaveta a {
+  padding: 14px 15px;
+  border-radius: var(--r-sm);
+  font-size: 1rem;
+}
+.nv-gaveta a:last-child {
+  color: var(--vermelho-claro);
+}
+
+/* ============================================================
+   CAPA — a divisão
+
+   Metade chapada em azul cheio, com o título; metade escura de box,
+   com a roda em 3D dentro do arco. A divisão resolve o de sempre:
+   texto sobre cor plana lê em qualquer tela, e o objeto aparece em
+   cena própria, com luz própria, em vez de recortado boiando.
+   ============================================================ */
+
+.cp {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  align-items: stretch;
+  overflow: hidden;
+  background: var(--azul-fundo);
+}
+
+/* a coluna do texto */
+.cp-texto {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 26px;
+  padding: calc(var(--h-tarja) + 118px) clamp(24px, 4vw, 68px) 72px var(--pad);
+  color: #fff;
+  will-change: transform;
+}
+
+.cp-rot {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+.cp-rot i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--vermelho);
+  box-shadow: 0 0 0 4px rgba(229, 52, 47, 0.24);
+}
+
+.cp-h1 {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3rem, 7.6vw, 6.6rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  text-transform: lowercase;
+  max-width: 11ch;
+}
+/* Cada linha vive numa janela com overflow escondido, para a entrada
+   poder subir de baixo sem vazar. */
+.cp-linha {
+  display: block;
+  overflow: hidden;
+}
+.cp-linha i {
+  display: block;
+  font-style: normal;
+  will-change: transform;
+}
+.cp-h1 em {
+  font-style: normal;
+  position: relative;
+  color: #fff;
+}
+/* o arco por cima da palavra que importa: o gesto do logo virando
+   sublinhado invertido */
+.cp-arco {
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: 88%;
+  height: 0.42em;
+}
+
+.cp-sub {
+  max-width: 46ch;
+  font-size: clamp(1.02rem, 1.2vw, 1.18rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.cp-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.cp-prova {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 440px;
+}
+.cp-nota {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.cp-estrelas {
+  display: flex;
+  gap: 2px;
+  color: #ffc531;
+}
+.cp-estrelas svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+}
+.cp-prova p {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.64);
+  margin-top: 4px;
+}
+
+/* a coluna da cena */
+.cp-cena {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(78% 60% at 50% 34%, #1b2836 0%, #0c1116 62%);
+}
+/* grade do piso do box, em fuga */
+.cp-piso {
+  position: absolute;
+  inset: auto -20% -6%;
+  height: 58%;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 74px 74px;
+  transform: perspective(560px) rotateX(68deg);
+  transform-origin: bottom center;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 46%, transparent 96%);
+  mask-image: linear-gradient(180deg, transparent, #000 46%, transparent 96%);
+  will-change: transform;
+}
+/* o arco gigante atrás da roda: a moldura da cena */
+.cp-moldura {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 14%;
+  opacity: 0.9;
+  will-change: transform;
+}
+.cp-moldura .arco path {
+  stroke-width: 2;
+  stroke: rgba(229, 52, 47, 0.55);
+}
+
+.cp-roda {
+  position: absolute;
+  inset: 8% 6%;
+  will-change: transform;
+}
+.cp-roda canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* as plaquetas que orbitam a roda: cada uma é uma medida real */
+.cp-tag {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 3px;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(12, 17, 22, 0.72);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  pointer-events: none;
+  will-change: transform;
+}
+.cp-tag span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.cp-tag b {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.cp-tag-a {
+  top: 13%;
+  right: 6%;
+}
+.cp-tag-b {
+  bottom: 16%;
+  left: 4%;
+}
+
+.cp-role {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  z-index: 4;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.cp-role i {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent);
+}
+
+/* ============================================================
+   SERVIÇOS — a lista de fachada
+
+   Uma linha por serviço, do tamanho de placa. O detalhe abre no lugar
+   quando o ponteiro pousa, sem tirar a pessoa da lista.
+   ============================================================ */
+
+.sv-topo {
+  display: grid;
+  gap: 20px;
+  max-width: 900px;
+  margin-bottom: clamp(40px, 6vw, 84px);
+}
+
+.sv-lista {
+  border-top: 1px solid var(--borda-tinta);
+}
+
+.sv-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid var(--borda-tinta);
+  padding: clamp(20px, 2.4vw, 32px) 0;
+  position: relative;
+  transition: padding-inline 0.45s var(--ease);
+}
+.sv-item:hover,
+.sv-item:focus-within {
+  padding-inline: clamp(8px, 1.4vw, 22px);
+}
+/* o arco vermelho que aparece na linha ativa */
+.sv-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 2px;
+  width: 0;
+  background: var(--vermelho);
+  transition: width 0.5s var(--ease);
+}
+.sv-item:hover::before,
+.sv-item:focus-within::before {
+  width: 100%;
+}
+
+.sv-linha {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) minmax(0, 0.85fr) auto;
+  gap: clamp(14px, 2.4vw, 40px);
+  align-items: baseline;
+}
+.sv-cod {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--vermelho);
+}
+.sv-nome {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2.7vw, 2.3rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: lowercase;
+}
+.sv-resumo {
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--tinta-fraca);
+}
+.sv-preco {
+  text-align: right;
+  white-space: nowrap;
+}
+.sv-preco b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.sv-preco span {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-tenue);
+}
+
+.sv-abre {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+.sv-item:hover .sv-abre,
+.sv-item:focus-within .sv-abre {
+  grid-template-rows: 1fr;
+}
+.sv-abre > div {
+  overflow: hidden;
+}
+.sv-abre p {
+  max-width: 76ch;
+  padding-top: 14px;
+  padding-left: calc(88px + clamp(14px, 2.4vw, 40px));
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--tinta-fraca);
+}
+
+.sv-pe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 36px;
+}
+
+/* ============================================================
+   BOX — o caminho do carro
+
+   Faixa grafite. Título preso à esquerda, as cinco etapas correndo à
+   direita. É sequência de verdade, então é a única coisa numerada na
+   página inteira.
+   ============================================================ */
+
+.bx-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 90px);
+  align-items: start;
+}
+.bx-preso {
+  display: grid;
+  gap: 22px;
+  justify-items: start;
+  align-self: start;
+}
+.bx-arco {
+  width: 130px;
+  margin-top: 6px;
+}
+
+.bx-lista {
+  display: grid;
+  gap: 14px;
+}
+.bx-etapa {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 30px);
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: var(--r);
+  border: 1px solid var(--linha-fraca);
+  background: linear-gradient(180deg, var(--grafite-3), var(--grafite-2));
+  will-change: transform, opacity;
+}
+.bx-n {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+.bx-n b {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.9rem;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--vermelho);
+}
+.bx-n span {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.44);
+}
+.bx-etapa h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+}
+.bx-etapa p {
+  margin-top: 8px;
+  font-size: 0.98rem;
+  line-height: 1.58;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ============================================================
+   PROVA — 1.304 avaliações, cinco em voz alta
+   ============================================================ */
+
+.pr-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(34px, 5vw, 66px);
+}
+.pr-selo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 22px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--linha);
+}
+.pr-selo b {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.pr-vozes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+  gap: 16px;
+}
+.pr-voz {
+  display: grid;
+  align-content: space-between;
+  gap: 24px;
+  padding: 30px 28px;
+  border-radius: var(--r);
+  border: 1px solid var(--linha);
+  background: rgba(255, 255, 255, 0.06);
+  will-change: transform, opacity;
+}
+.pr-voz blockquote {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.14rem;
+  line-height: 1.36;
+  letter-spacing: -0.025em;
+}
+.pr-pe {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--linha);
+}
+.pr-pe b {
+  display: block;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+.pr-pe span {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-tenue);
+}
+.pr-estrelas {
+  display: flex;
+  gap: 2px;
+  color: #ffc531;
+  flex-shrink: 0;
+}
+.pr-estrelas svg {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+/* a curva de texto que passa por baixo das vozes */
+.pr-curva {
+  margin-top: clamp(40px, 6vw, 80px);
+  color: rgba(255, 255, 255, 0.16);
+}
+.pr-curva .curved-loop-jacket {
+  min-height: 180px;
+}
+.pr-curva text {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  fill: currentColor;
+}
+
+/* ============================================================
+   BANCADA — o sistema por dentro
+   ============================================================ */
+
+.bc-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(32px, 5vw, 78px);
+  align-items: center;
+}
+.bc-pontos {
+  display: grid;
+  margin: 30px 0 32px;
+}
+.bc-ponto {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px 0;
+  border-top: 1px solid var(--borda-tinta);
+}
+.bc-ponto:last-child {
+  border-bottom: 1px solid var(--borda-tinta);
+}
+.bc-ponto svg {
+  width: 17px;
+  height: 17px;
+  margin-top: 4px;
+  color: var(--vermelho);
+  stroke-width: 1.6;
+}
+.bc-ponto b {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+  text-transform: lowercase;
+}
+.bc-ponto p {
+  margin-top: 4px;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: var(--tinta-fraca);
+}
+
+.bc-tela {
+  border-radius: var(--r);
+  border: 1px solid var(--linha-escura);
+  background: var(--grafite);
+  overflow: hidden;
+  box-shadow: 0 50px 90px -56px rgba(5, 32, 92, 0.8);
+  will-change: transform;
+}
+.bc-barra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--linha-fraca);
+  background: var(--grafite-2);
+}
+.bc-barra i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+.bc-barra span {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.42);
+}
+.bc-corpo {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+.bc-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.bc-kpi {
+  padding: 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--linha-fraca);
+  background: var(--grafite-2);
+}
+.bc-kpi span {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.bc-kpi b {
+  display: block;
+  margin-top: 7px;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.bc-linha {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--linha-fraca);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.68);
+}
+.bc-linha code {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--vermelho-claro);
+}
+.bc-linha b {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* ============================================================
+   AGENDAR — endereço, horário e o botão
+   ============================================================ */
+
+.ag-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(32px, 5vw, 84px);
+  align-items: start;
+}
+.ag-blocos {
+  margin-top: 30px;
+}
+.ag-bloco {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 20px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-top: 1px solid var(--borda-tinta);
+}
+.ag-bloco:last-child {
+  border-bottom: 1px solid var(--borda-tinta);
+}
+.ag-bloco p {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.ag-bloco a:hover {
+  color: var(--vermelho);
+}
+.ag-hora {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 3px 0;
+  font-size: 0.98rem;
+}
+.ag-hora span:last-child {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  color: var(--tinta-fraca);
+}
+
+.ag-cartao {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 20px;
+  padding: clamp(30px, 3.6vw, 48px);
+  border-radius: var(--r);
+  background: linear-gradient(158deg, #0d47bd 0%, #072f8a 52%, #05205c 100%);
+  color: #fff;
+}
+.ag-cartao::after {
+  content: '';
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 52, 47, 0.55), transparent 66%);
+}
+.ag-cartao > * {
+  position: relative;
+  z-index: 1;
+}
+.ag-cartao .texto {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* ============================================================
+   RODAPÉ
+   ============================================================ */
+
+.rp {
+  padding: 34px var(--pad);
+  border-top: 1px solid var(--linha-fraca);
+  background: var(--grafite);
+  color: #fff;
+}
+.rp-dentro {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.rp-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.rp-links a {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.62);
+  transition: color 0.25s;
+}
+.rp-links a:hover {
+  color: #fff;
+}
+
+/* o botão do zap, sempre à mão */
+.zap {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #06301a;
+  box-shadow: 0 16px 38px -12px rgba(37, 211, 102, 0.7);
+  transition: translate 0.3s var(--spring), scale 0.3s var(--spring);
+}
+.zap:hover {
+  scale: 1.08;
+}
+.zap svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* ------------------------------------------------------------
+   Estados iniciais de entrada. Vivem numa classe posta pelo JS:
+   sem script, nada some.
+   ------------------------------------------------------------ */
+
+.js .surge {
+  opacity: 0;
+  translate: 0 24px;
+}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+
+@media (max-width: 1080px) {
+  .cp {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+  }
+  .cp-cena {
+    order: -1;
+    min-height: 62svh;
+    margin-top: calc(var(--h-tarja) + 76px);
+  }
+  .cp-texto {
+    padding: 44px var(--pad) 72px;
+  }
+  .bx-grade,
+  .bc-grade,
+  .ag-grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sv-linha {
+    grid-template-columns: 74px minmax(0, 1fr) auto;
+  }
+  .sv-resumo {
+    grid-column: 2 / -1;
+    grid-row: 2;
+    margin-top: 8px;
+  }
+  .sv-abre p {
+    padding-left: calc(74px + clamp(14px, 2.4vw, 40px));
+  }
+}
+
+@media (max-width: 860px) {
+  .nv-links {
+    display: none;
+  }
+  .nv-burger {
+    display: grid;
+  }
+  .bc-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .cp-tag {
+    display: none;
+  }
+  .sv-linha {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .sv-cod {
+    grid-column: 1 / -1;
+    margin-bottom: 6px;
+  }
+  .sv-resumo {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .sv-abre p {
+    padding-left: 0;
+  }
+  .bx-etapa {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .ag-bloco {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .bc-linha {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+  .bc-linha b {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .surge {
+    opacity: 1;
+    translate: none;
+  }
+}
