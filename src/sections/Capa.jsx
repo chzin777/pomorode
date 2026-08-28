@@ -162,7 +162,7 @@ export default function Capa() {
         <Roda className="cp-roda" />
 
         <div className="cp-tag cp-tag-a" data-plano="1.1">
-          <span>aro de liga leve</span>
+          <span>roda esportiva</span>
           <b>até 10x sem juros</b>
         </div>
         <div className="cp-tag cp-tag-b" data-plano="0.8">
