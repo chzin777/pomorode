@@ -215,6 +215,52 @@ export const SERVICOS = [
   },
 ];
 
+/* A LANDING não lista os catorze. Catorze linhas viram um cardápio que
+   ninguém lê até o fim, e o cliente já chega sabendo o que quer.
+
+   Aqui vão as seis famílias, e cada uma diz por extenso o que engloba —
+   nada da lista da loja fica de fora, só deixa de ocupar uma linha
+   própria. A tabela de catorze continua inteira em SERVICOS, que é a
+   que a bancada usa na ordem de serviço e no recibo. */
+export const VITRINE = [
+  {
+    codigo: 'TRO-OL',
+    nome: 'óleo e filtros',
+    resumo: 'óleo na especificação do manual, com os quatro filtros: óleo, combustível, ar do motor e cabine.',
+    box: 40,
+  },
+  {
+    codigo: 'PNE-MO',
+    nome: 'pneus',
+    resumo: 'venda e montagem, conserto de furo, câmaras e calibragem com nitrogênio.',
+    box: 25,
+  },
+  {
+    codigo: 'RDA-ES',
+    nome: 'rodas',
+    resumo: 'rodas esportivas, reforma da amassada, solda da trincada e desempeno.',
+    box: 60,
+  },
+  {
+    codigo: 'GEO-BA',
+    nome: 'geometria',
+    resumo: 'cambagem, alinhamento e balanceamento das quatro, com a leitura antes e depois.',
+    box: 45,
+  },
+  {
+    codigo: 'BAT-TR',
+    nome: 'bateria e lâmpadas',
+    resumo: 'teste de carga antes de vender bateria, troca de lâmpada e alinhamento do facho.',
+    box: 20,
+  },
+  {
+    codigo: 'HIG-AR',
+    nome: 'ar-condicionado e aditivos',
+    resumo: 'higienização da evaporadora, filtro de cabine, aditivo de radiador e fluido de freio.',
+    box: 50,
+  },
+];
+
 /* O caminho do carro dentro do box. É sequência de verdade, por isso
    ganha número; nada mais na página ganha. */
 export const ETAPAS = [

@@ -1,24 +1,30 @@
 import { useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
-import CurvedLoop from '../lib/rb/CurvedLoop.jsx';
-import { Estrelas } from '../components/Marca.jsx';
 import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
-import { DEPOIMENTOS, PROVA } from '../dados.js';
+import { Estrelas } from '../components/Marca.jsx';
+import { DEPOIMENTOS, MARCA, PROVA } from '../dados.js';
 
 /* ============================================================
-   PROVA — 1.304 avaliações, cinco delas em voz alta.
+   PROVA — o mural.
 
-   Nota grande em cima porque 4,9 é o argumento; as cinco vozes embaixo
-   porque nota sem frase é número solto. Cada uma leva o código do
-   serviço, que amarra o depoimento à lista que a pessoa acabou de ler.
+   A versão anterior dizia a nota três vezes: no rótulo, no título e
+   num selo ao lado. Repetir número não é ênfase, é ruído — e os cinco
+   cartões idênticos embaixo faziam a leitura poder começar por
+   qualquer um, que é o mesmo que não ter começo.
+
+   Agora a prova numérica fica sozinha numa coluna presa à esquerda,
+   dita uma vez só, e as vozes correm à direita com a primeira em corpo
+   grande: ela é a que a pessoa vai ler de fato, as outras confirmam.
+
+   O fundo é a parede de rodas da loja. As vozes vêm em cartão branco
+   opaco por causa dela: texto direto sobre foto é o jeito mais rápido
+   de tornar um depoimento ilegível.
    ============================================================ */
 
-/* O pneu grande atravessando a seção por baixo dos depoimentos: é a
-   peça mais reconhecível do catálogo e a única que aguenta ser cortada
-   pela borda e continuar legível. */
 const PECAS = [
-  { peca: 'pneu', x: '-12%', y: '12%', w: '34%', mov: 0.45, rot: -6, op: 0.48, bl: 1, balanca: 'a' },
-  { peca: 'lampada', x: '90%', y: '4%', w: '13%', mov: 1.2, rot: 28, op: 0.63, bl: 0, balanca: 'b' },
+  { peca: 'pneu', x: '-12%', y: '14%', w: '30%', mov: 0.45, rot: -6, op: 0.48, bl: 1, balanca: 'a' },
+  { peca: 'lampada', x: '92%', y: '4%', w: '12%', mov: 1.2, rot: 28, op: 0.63, bl: 0, balanca: 'b' },
 ];
 
 export default function Prova() {
@@ -29,7 +35,7 @@ export default function Prova() {
     () => {
       if (prefersReduced()) return;
 
-      gsap.utils.toArray('.pr-voz', raiz.current).forEach((el, i) => {
+      gsap.utils.toArray('.pr-voz', raiz.current).forEach((el) => {
         gsap.fromTo(
           el,
           { opacity: 0, y: 40 },
@@ -38,7 +44,6 @@ export default function Prova() {
             y: 0,
             duration: 0.85,
             ease: 'expo.out',
-            delay: (i % 3) * 0.06,
             scrollTrigger: { trigger: el, start: 'top 92%', once: true },
           },
         );
@@ -61,31 +66,29 @@ export default function Prova() {
     <section className="secao faixa-ceu" id="prova" ref={raiz}>
       <Flutuantes pecas={PECAS} />
 
-      <div className="dentro">
-        <div className="pr-topo">
-          <div>
-            <p className="rotulo surge">
-              google <b>—</b> {PROVA.nota} de 5
-            </p>
-            <h2 className="titulo surge" style={{ marginTop: 0.9 }}>
-              cinco das <em>{PROVA.avaliacoes}</em>, na íntegra.
-            </h2>
-          </div>
-
-          <div className="pr-selo surge">
-            <b>{PROVA.nota}</b>
-            <div>
-              <Estrelas />
-              <p className="rotulo" style={{ marginTop: 0.9 }}>
-                {PROVA.avaliacoes} avaliações
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className="dentro pr-grade">
+        {/* a prova numérica, dita uma vez */}
+        <aside className="pr-nota surge">
+          <b>{PROVA.nota}</b>
+          <Estrelas />
+          <p>
+            {PROVA.avaliacoes} avaliações
+            <br />
+            no Google
+          </p>
+          <a className="btn ghost" href={MARCA.maps} target="_blank" rel="noreferrer">
+            ler todas
+            <ArrowUpRight />
+          </a>
+        </aside>
 
         <div className="pr-vozes">
-          {DEPOIMENTOS.map((d) => (
-            <article className="pr-voz" key={d.nome}>
+          <h2 className="titulo surge pr-titulo">
+            o que dizem depois de <em>sair do box</em>.
+          </h2>
+
+          {DEPOIMENTOS.map((d, i) => (
+            <article className={`pr-voz${i === 0 ? ' pr-voz-lead' : ''}`} key={d.nome}>
               <blockquote>&ldquo;{d.texto}&rdquo;</blockquote>
               <div className="pr-pe">
                 <div>
@@ -99,13 +102,6 @@ export default function Prova() {
             </article>
           ))}
         </div>
-      </div>
-
-      {/* A curva passa por baixo das vozes com o slogan da loja. É
-          decoração assumida, então fica em tinta quase transparente:
-          quem lê, lê o depoimento; quem olha, vê a marca. */}
-      <div className="pr-curva" aria-hidden="true">
-        <CurvedLoop marqueeText="seu carro merece // você merece // " speed={1.4} curveAmount={260} interactive={false} />
       </div>
     </section>
   );

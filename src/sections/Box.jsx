@@ -24,7 +24,6 @@ import { ETAPAS, MARCA } from '../dados.js';
 const PECAS = [
   { peca: 'lampada', x: '-4%', y: '58%', w: '17%', mov: 1.2, rot: 22, op: 0.9, bl: 0, balanca: 'b' },
   { peca: 'aditivo', x: '88%', y: '6%', w: '14%', mov: 0.6, rot: -14, op: 0.9, bl: 0, balanca: 'a' },
-  { peca: 'oleo', x: '90%', y: '68%', w: '13%', mov: 0.9, rot: 10, op: 0.81, bl: 1 },
 ];
 
 export default function Box() {

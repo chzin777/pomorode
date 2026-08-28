@@ -254,15 +254,32 @@ body {
   width: 18px;
   height: 18px;
 }
+/* O segundo botão é sólido, não vazado. Sobre foto de oficina um botão
+   transparente lê como se estivesse meio apagado — e ele é a porta para
+   a lista de serviços, não um detalhe. */
 .btn.ghost {
-  background: transparent;
-  color: var(--tinta, var(--sobre-claro));
-  border-color: var(--borda-tinta, var(--linha-escura));
+  background: var(--branco);
+  color: var(--sobre-claro);
+  border-color: var(--sobre-claro);
 }
 .btn.ghost:hover {
-  background: transparent;
-  border-color: currentColor;
+  background: var(--sobre-claro);
+  color: var(--branco);
+  border-color: var(--sobre-claro);
   box-shadow: none;
+}
+/* nas faixas escuras ele inverte, e continua sólido */
+.faixa-preta .btn.ghost,
+.ag-cartao .btn.ghost {
+  background: var(--preto-3);
+  color: #fff;
+  border-color: var(--preto-3);
+}
+.faixa-preta .btn.ghost:hover,
+.ag-cartao .btn.ghost:hover {
+  background: #fff;
+  color: var(--preto);
+  border-color: #fff;
 }
 .btn.branco {
   background: #fff;

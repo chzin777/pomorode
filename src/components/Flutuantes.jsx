@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { gsap, ScrollTrigger, prefersReduced } from '../lib/anim.js';
+import { gsap, prefersReduced } from '../lib/anim.js';
 
 /* ============================================================
    AS PEÇAS FLUTUANTES
@@ -67,7 +67,9 @@ export function useFlutuantes(raiz, forca = 26) {
       });
     }, el);
 
-    ScrollTrigger.refresh();
+    /* Nada de ScrollTrigger.refresh() aqui: com seis seções chamando o
+       hook, era um recálculo de todos os gatilhos por seção montada. O
+       refresh que importa é o único do App, quando a cortina sai. */
     return () => ctx.revert();
   }, [raiz, forca]);
 }

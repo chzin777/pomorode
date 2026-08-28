@@ -2,22 +2,22 @@ import { useRef } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
 import Flutuantes, { useFlutuantes } from '../components/Flutuantes.jsx';
-import { SERVICOS, MARCA } from '../dados.js';
+import { VITRINE, MARCA } from '../dados.js';
 
 /* ============================================================
    SERVIÇOS — a lista de fachada.
 
-   Uma linha por serviço, no tamanho de placa. O detalhe abre no lugar,
-   sem tirar a pessoa da lista e sem abrir janela.
+   Seis linhas, no tamanho de placa. Eram catorze, uma para cada item
+   que a loja publica no WhatsApp, e catorze viram um cardápio que
+   ninguém lê até o fim. Agrupadas em famílias, nada saiu: cada resumo
+   diz por extenso o que a família engloba.
 
-   A lista é a que a loja publica no WhatsApp, inteira. O que aparece à
-   direita é TEMPO DE BOX, não preço: a tabela real muda por peça e por
-   carro, e preço errado numa página vira discussão no balcão. Quem
-   quer o número pede pelo WhatsApp e recebe na hora.
+   O que aparece à direita é TEMPO DE BOX, não preço: a tabela real
+   muda por peça e por carro, e preço errado numa página vira discussão
+   no balcão. Quem quer o número pede no WhatsApp e recebe na hora.
 
    O código à esquerda (TRO-OL, GEO-BA) não é enfeite: é a mesma chave
-   que a bancada usa na ordem de serviço e imprime no recibo. Quem
-   recebe o papel reconhece a linha que leu aqui.
+   que a bancada usa na ordem de serviço e imprime no recibo.
    ============================================================ */
 
 /* As peças desta seção são as que ela vende: a bateria abre a lista, o
@@ -26,7 +26,6 @@ import { SERVICOS, MARCA } from '../dados.js';
 const PECAS = [
   { peca: 'bateria', x: '-6%', y: '4%', w: '20%', mov: 0.5, rot: -12, op: 0.52, bl: 0, balanca: 'a' },
   { peca: 'oleo', x: '86%', y: '30%', w: '15%', mov: 1.1, rot: 14, op: 0.66, bl: 0, balanca: 'b' },
-  { peca: 'aditivo', x: '78%', y: '82%', w: '12%', mov: 0.8, rot: -8, op: 0.52, bl: 1 },
 ];
 
 export default function Servicos() {
@@ -72,20 +71,18 @@ export default function Servicos() {
       <div className="dentro">
         <div className="sv-topo">
           <p className="rotulo surge">
-            catorze códigos <b>—</b> os mesmos que saem no seu recibo
+            seis famílias <b>—</b> o código é o mesmo que sai no seu recibo
           </p>
           <h2 className="titulo surge">
-            tudo que entra no box, e <em>quanto tempo</em> cada coisa leva.
+            tudo que entra no box, e <em>quanto tempo</em> leva.
           </h2>
           <p className="texto surge">
-            O tempo é o de box mesmo, medido aqui. O preço sai no orçamento, item por item, porque
-            depende da peça e do carro — e a gente prefere errar para menos na promessa do que na
-            conta.
+            O tempo é o de box mesmo, medido aqui. O preço sai no orçamento, item por item.
           </p>
         </div>
 
         <div className="sv-lista">
-          {SERVICOS.map((s) => (
+          {VITRINE.map((s) => (
             <article className="sv-item" key={s.codigo} tabIndex={0}>
               <div className="sv-linha">
                 <span className="sv-cod">{s.codigo}</span>
@@ -93,15 +90,10 @@ export default function Servicos() {
                 <p className="sv-resumo">{s.resumo}</p>
                 <p className="sv-preco">
                   <b>{s.box} min</b>
-                  <span>de box · {s.unidade}</span>
+                  <span>de box</span>
                 </p>
               </div>
 
-              <div className="sv-abre">
-                <div>
-                  <p>{s.detalhe}</p>
-                </div>
-              </div>
             </article>
           ))}
         </div>

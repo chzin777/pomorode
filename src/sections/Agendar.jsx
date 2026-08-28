@@ -16,7 +16,6 @@ import { HORARIOS, MARCA } from '../dados.js';
 const PECAS = [
   { peca: 'aditivo', x: '-4%', y: '10%', w: '15%', mov: 0.9, rot: 12, op: 0.59, bl: 0, balanca: 'a' },
   { peca: 'lampada', x: '46%', y: '76%', w: '11%', mov: 1.3, rot: -24, op: 0.52, bl: 0, balanca: 'b' },
-  { peca: 'pneu', x: '80%', y: '58%', w: '26%', mov: 0.4, rot: 8, op: 0.41, bl: 1 },
 ];
 
 export default function Agendar() {

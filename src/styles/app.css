@@ -273,221 +273,191 @@
 }
 
 /* ============================================================
-   CAPA — a divisão
+   CAPA — o portão abrindo
 
-   Metade chapada em azul cheio, com o título; metade escura de box,
-   com a roda em 3D dentro do arco. A divisão resolve o de sempre:
-   texto sobre cor plana lê em qualquer tela, e o objeto aparece em
-   cena própria, com luz própria, em vez de recortado boiando.
+   Um trilho alto com a cena presa dentro. A foto começa recortada numa
+   fresta no meio da tela e vai abrindo até tomar tudo, enquanto as duas
+   metades do título se afastam.
+
+   O recorte é dirigido por --abertura (1 fechado, 0 aberto), escrita
+   pelo ScrollTrigger. Vai por variável e não por clip-path inline
+   porque assim o valor interpola em vez de saltar entre dois estados.
    ============================================================ */
 
 .cp {
   position: relative;
-  min-height: 100svh;
-  display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  align-items: stretch;
-  overflow: hidden;
-  background: var(--ceu);
-}
-/* A oficina de verdade atrás do céu. Não é papel de parede solto: é o
-   lugar onde o carro vai parar. Entra em baixa opacidade sobre a cor
-   chapada, porque o preto do título continua tendo que ganhar dela —
-   é a única coisa aqui que não pode falhar. */
-.cp::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url('/cena/oficina.webp') center 62% / cover no-repeat;
-  /* baixou de 0.34: a foto é textura de fundo, e o parágrafo do hero
-     perdia contraste contra o piso claro da oficina */
-  opacity: 0.24;
-  pointer-events: none;
-}
-/* as três listras do logo, deitadas na divisa das duas metades: é o
-   único lugar onde o amarelo aparece grande, e mesmo assim em 6px */
-.cp::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(51% - 3px);
-  z-index: 4;
-  width: 6px;
-  background: var(--preto);
-  box-shadow: -9px 0 0 var(--vermelho), -18px 0 0 var(--amarelo);
-  pointer-events: none;
+  height: 240vh;
 }
 
-/* a coluna do texto */
-.cp-texto {
-  position: relative;
-  z-index: 3;
-  display: grid;
-  align-content: center;
-  justify-items: start;
-  gap: 26px;
-  padding: calc(var(--h-tarja) + 118px) clamp(24px, 4vw, 68px) 72px var(--pad);
-  color: var(--sobre-claro);
+.cp-fixo {
+  --abertura: 1;
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--preto);
+}
+
+/* a banda de rodagem no fundo, quase apagada */
+.cp-banda {
+  position: absolute;
+  inset: -12% 0 0;
+  height: 124%;
+  background: url('/cena/banda.webp') center / cover no-repeat;
+  opacity: 0.12;
   will-change: transform;
+}
+/* a brasa vermelha da marca, onde a fresta abre */
+.cp-brasa {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(74% 54% at 50% 42%, rgba(224, 35, 31, 0.22), transparent 68%);
+}
+
+.cp-portao {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--preto-2);
+  /* Fechado: uma fresta de 340px de largura e 62vh de altura no meio da
+     tela. Aberto: o hero inteiro. O px na conta mantém a fresta com
+     largura sensata no celular, onde só porcentagem a fecharia. */
+  clip-path: inset(
+    calc(var(--abertura) * (50% - 31vh)) calc(var(--abertura) * max(19%, 50% - 170px)) round
+      calc(var(--abertura) * 22px)
+  );
+}
+.cp-foto {
+  position: absolute;
+  inset: 0;
+  background: url('/cena/parede-pneus.webp') center / cover no-repeat;
+  will-change: transform;
+}
+.cp-veu {
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 18, 21, 0.84) 0%,
+    rgba(16, 18, 21, 0.36) 34%,
+    rgba(16, 18, 21, 0.72) 64%,
+    rgba(16, 18, 21, 0.97) 100%
+  );
+}
+
+.cp-corpo {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: calc(var(--h-tarja) + 96px) var(--pad) 26px;
+  color: #fff;
 }
 
 .cp-h1 {
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: clamp(3rem, 7.6vw, 6.6rem);
-  line-height: 0.86;
-  letter-spacing: -0.055em;
-  text-transform: lowercase;
-  max-width: 11ch;
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
 }
-/* Cada linha vive numa janela com overflow escondido, para a entrada
-   poder subir de baixo sem vazar. */
 .cp-linha {
   display: block;
   overflow: hidden;
+  will-change: transform;
 }
 .cp-linha i {
   display: block;
   font-style: normal;
-  will-change: transform;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 8vw, 6.2rem);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+  text-shadow: 0 6px 30px rgba(16, 18, 21, 0.9);
 }
-.cp-h1 em {
-  font-style: normal;
-  position: relative;
+.cp-l2 i {
   color: var(--vermelho);
 }
-/* o arco por cima da palavra que importa: o gesto do logo virando
-   sublinhado invertido */
-.cp-arco {
-  position: absolute;
-  left: -1%;
-  right: -1%;
-  bottom: 84%;
-  height: 0.34em;
-}
 
+.cp-pe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 22px;
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+}
 .cp-sub {
-  max-width: 46ch;
-  font-size: clamp(1.02rem, 1.2vw, 1.18rem);
-  line-height: 1.5;
-  /* tinta cheia, não a apagada: aqui atrás tem foto, e escala de tinta
-     fraca só funciona sobre cor chapada */
-  color: var(--sobre-claro);
-  font-weight: 500;
+  max-width: 40ch;
+  font-size: clamp(0.95rem, 1.05vw, 1.06rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
 }
-
 .cp-acoes {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   gap: 12px;
 }
 
-.cp-prova {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding-top: 22px;
-  border-top: 1px solid var(--linha-escura);
-  width: 100%;
-  max-width: 440px;
-}
 .cp-nota {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--linha-fraca);
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+.cp-nota b {
   font-family: var(--display);
   font-weight: 800;
-  font-size: 2rem;
-  line-height: 1;
+  font-size: 1.5rem;
   letter-spacing: -0.04em;
-}
-.cp-estrelas {
-  display: flex;
-  gap: 2px;
-  color: #e8a11c;
-}
-.cp-estrelas svg {
-  width: 13px;
-  height: 13px;
-  fill: currentColor;
-}
-.cp-prova p {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--sobre-claro-tenue);
-  margin-top: 4px;
-}
-
-/* a coluna da cena */
-.cp-cena {
-  position: relative;
-  overflow: hidden;
-  background: var(--preto);
-}
-/* grade do piso do box, em fuga */
-.cp-piso {
-  position: absolute;
-  inset: auto -20% -6%;
-  height: 58%;
-  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 74px 74px;
-  transform: perspective(560px) rotateX(68deg);
-  transform-origin: bottom center;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 46%, transparent 96%);
-  mask-image: linear-gradient(180deg, transparent, #000 46%, transparent 96%);
-  will-change: transform;
-}
-/* o arco gigante atrás da roda: a moldura da cena */
-.cp-moldura {
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 14%;
-  opacity: 0.9;
-  will-change: transform;
-}
-.cp-moldura .arco path {
-  stroke-width: 2;
-  stroke: rgba(224, 35, 31, 0.6);
-}
-
-.cp-roda {
-  position: absolute;
-  inset: 8% 6%;
-  will-change: transform;
-}
-.cp-roda canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.cp-role {
-  position: absolute;
-  left: 50%;
-  bottom: 20px;
-  z-index: 5;
-  translate: -50% 0;
-  display: grid;
-  justify-items: center;
-  gap: 8px;
-}
-.cp-role span {
-  padding: 7px 15px;
-  border-radius: var(--r-pill);
-  background: var(--preto);
   color: #fff;
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
 }
-.cp-role i {
-  width: 2px;
-  height: 34px;
-  background: var(--vermelho);
+.cp-nota span {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+.cp-desce {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  border: 1px solid var(--linha);
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.cp-desce:hover {
+  color: var(--vermelho);
+  border-color: var(--vermelho);
+}
+
+.cp-pecas {
+  z-index: 3;
 }
 
 /* ============================================================
@@ -621,6 +591,18 @@
    página inteira.
    ============================================================ */
 
+/* a oficina atrás do fosso: o mesmo lugar do hero, agora como textura
+   do fundo escuro em vez de cena principal */
+#box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('/cena/oficina.webp') center / cover no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
 .bx-grade {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -686,11 +668,12 @@
 }
 
 /* ============================================================
-   PROVA — 1.304 avaliações, cinco em voz alta
+   PROVA — o mural
 
-   O fundo é a parede de rodas da loja. As vozes vêm em cartão branco
-   opaco justamente por causa dela: texto direto sobre foto é o jeito
-   mais rápido de tornar um depoimento ilegível.
+   Coluna da esquerda presa, com a nota dita uma vez. Coluna da direita
+   com as vozes, a primeira em corpo grande. O fundo é a parede de
+   rodas da loja, e por isso cada voz vem em cartão branco opaco: texto
+   direto sobre foto é o jeito mais rápido de ficar ilegível.
    ============================================================ */
 
 #prova::before {
@@ -703,40 +686,53 @@
   pointer-events: none;
 }
 
-.pr-topo {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: clamp(34px, 5vw, 66px);
+.pr-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+  gap: clamp(28px, 5vw, 84px);
+  align-items: start;
 }
-.pr-selo {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 22px;
-  border-radius: var(--r-pill);
+
+.pr-nota {
+  position: sticky;
+  top: 120px;
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  padding: clamp(24px, 2.6vw, 34px);
+  border-radius: var(--r);
   border: 1px solid var(--borda-tinta);
+  background: var(--branco);
 }
-.pr-selo b {
+.pr-nota b {
   font-family: var(--display);
   font-weight: 800;
-  font-size: 2.1rem;
-  line-height: 1;
-  letter-spacing: -0.045em;
+  font-size: clamp(3.4rem, 7vw, 5.6rem);
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+}
+.pr-nota p {
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--tinta-fraca);
+}
+.pr-nota .btn {
+  margin-top: 8px;
 }
 
 .pr-vozes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
   gap: 16px;
 }
+.pr-titulo {
+  margin-bottom: 8px;
+}
+
 .pr-voz {
   display: grid;
   align-content: space-between;
-  gap: 24px;
-  padding: 30px 28px;
+  gap: 20px;
+  padding: 26px 26px;
   border-radius: var(--r);
   border: 1px solid var(--borda-tinta);
   background: var(--branco);
@@ -745,21 +741,43 @@
 .pr-voz blockquote {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 1.14rem;
-  line-height: 1.36;
-  letter-spacing: -0.025em;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
 }
+/* a primeira é a que vai ser lida; as outras confirmam */
+.pr-voz-lead {
+  padding: clamp(28px, 3vw, 40px);
+}
+.pr-voz-lead blockquote {
+  font-size: clamp(1.3rem, 2.1vw, 1.9rem);
+  line-height: 1.24;
+  letter-spacing: -0.035em;
+}
+
+/* da segunda em diante elas dividem a largura em duas */
+.pr-voz:not(.pr-voz-lead) {
+  grid-column: span 1;
+}
+.pr-vozes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.pr-titulo,
+.pr-voz-lead {
+  grid-column: 1 / -1;
+}
+
 .pr-pe {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 14px;
-  padding-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid var(--borda-tinta);
 }
 .pr-pe b {
   display: block;
-  font-size: 0.94rem;
+  font-size: 0.92rem;
   font-weight: 600;
 }
 .pr-pe span {
@@ -780,21 +798,6 @@
 .pr-estrelas svg {
   width: 12px;
   height: 12px;
-  fill: currentColor;
-}
-
-/* a curva de texto que passa por baixo das vozes */
-.pr-curva {
-  margin-top: clamp(40px, 6vw, 80px);
-  color: rgba(16, 18, 21, 0.09);
-}
-.pr-curva .curved-loop-jacket {
-  min-height: 180px;
-}
-.pr-curva text {
-  font-family: var(--display);
-  font-weight: 800;
-  letter-spacing: -0.03em;
   fill: currentColor;
 }
 
@@ -1082,26 +1085,27 @@
 
 @media (max-width: 1080px) {
   .cp {
-    grid-template-columns: minmax(0, 1fr);
-    min-height: auto;
+    height: 200vh;
   }
-  /* empilhado não existe divisa vertical para marcar; a listra deitada
-     na horizontal viraria enfeite solto, então ela some */
-  .cp::after {
-    display: none;
+  .cp-pe {
+    justify-content: center;
+    text-align: center;
   }
-  .cp-cena {
-    order: -1;
-    min-height: 62svh;
-    margin-top: calc(var(--h-tarja) + 76px);
+  .cp-sub {
+    margin-inline: auto;
   }
-  .cp-texto {
-    padding: 44px var(--pad) 72px;
+  .cp-acoes {
+    justify-content: center;
+    width: 100%;
   }
   .bx-grade,
   .bc-grade,
-  .ag-grade {
+  .ag-grade,
+  .pr-grade {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .pr-nota {
+    position: static;
   }
   .sv-linha {
     grid-template-columns: 74px minmax(0, 1fr) auto;
@@ -1125,6 +1129,12 @@
   }
   .bc-kpis {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .pr-vozes {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1201,7 +1211,11 @@
   width: 100%;
   height: auto;
   opacity: var(--op, 0.3);
-  filter: blur(var(--bl, 0px)) drop-shadow(0 30px 40px rgba(16, 18, 21, 0.35));
+  /* O drop-shadow saiu. Numa PNG com alpha de meio milhar de pixels ele
+     obriga o navegador a rasterizar a silhueta inteira de novo, vezes
+     dezoito peças — era metade do engasgo na rolagem. O desfoque fica,
+     porque é estático: pinta uma vez e depois só é composto. */
+  filter: blur(var(--bl, 0px));
   will-change: transform;
 }
 
@@ -1233,8 +1247,13 @@
 }
 
 /* toda seção vira palco: as peças ficam no fundo, o conteúdo por cima */
+/* `content-visibility` deixa o navegador pular o layout e a pintura de
+   quem ainda está fora da tela. `contain-intrinsic-size` dá a altura
+   estimada para a barra de rolagem não pular enquanto isso. */
 .secao {
   position: relative;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 .secao > .dentro {
   position: relative;

@@ -32,7 +32,6 @@ const SAIDA = 1.05;
 const PECAS = [
   { peca: 'pneu', x: '-14%', y: '4%', w: '30%', mov: 0.5, rot: -8, op: 0.5, balanca: 'a' },
   { peca: 'bateria', x: '80%', y: '62%', w: '26%', mov: 0.8, rot: 12, op: 0.45, balanca: 'b' },
-  { peca: 'lampada', x: '76%', y: '-6%', w: '16%', mov: 1, rot: 30, op: 0.4, balanca: 'b' },
   { peca: 'aditivo', x: '4%', y: '70%', w: '15%', mov: 0.9, rot: 16, op: 0.45, balanca: 'a' },
 ];
 
