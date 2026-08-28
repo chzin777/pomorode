@@ -300,7 +300,9 @@
   inset: 0;
   z-index: 0;
   background: url('/cena/oficina.webp') center 62% / cover no-repeat;
-  opacity: 0.34;
+  /* baixou de 0.34: a foto é textura de fundo, e o parágrafo do hero
+     perdia contraste contra o piso claro da oficina */
+  opacity: 0.24;
   pointer-events: none;
 }
 /* as três listras do logo, deitadas na divisa das duas metades: é o
@@ -369,8 +371,11 @@
 .cp-sub {
   max-width: 46ch;
   font-size: clamp(1.02rem, 1.2vw, 1.18rem);
-  line-height: 1.55;
-  color: var(--sobre-claro-fraco);
+  line-height: 1.5;
+  /* tinta cheia, não a apagada: aqui atrás tem foto, e escala de tinta
+     fraca só funciona sobre cor chapada */
+  color: var(--sobre-claro);
+  font-weight: 500;
 }
 
 .cp-acoes {

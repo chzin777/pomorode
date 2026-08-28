@@ -145,8 +145,8 @@ export default function Capa() {
         </h1>
 
         <p className="cp-sub">
-          Troca de óleo, pneu, alinhamento e suspensão na XV de Novembro. Cada peça trocada vai
-          por foto no seu WhatsApp, e a próxima manutenção já sai agendada na saída do box.
+          Troca de óleo, pneu, geometria e bateria na XV de Novembro. Cada peça trocada vai por
+          foto no seu WhatsApp, e a próxima manutenção já sai agendada na saída do box.
         </p>
 
         <div className="cp-acoes">

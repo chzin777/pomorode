@@ -35,6 +35,14 @@ import { gsap, ScrollTrigger, prefersReduced } from './anim.js';
 /** raio que a roda ocupa na cena, em unidades de mundo */
 const RAIO = 1.95;
 
+/* Qual das duas faces do disco olha para a câmera.
+
+   O alinhamento acha o EIXO do cubo, nunca o LADO: a caixa que envolve
+   a roda é a mesma com a peça virada de frente ou de costas. Então o
+   lado é escolha, e mora aqui — trocar para 1 mostra a outra face, que
+   é o conserto de um dia trocarem o .glb por um modelado ao contrário. */
+const FACE = -1;
+
 /** o que vem junto no arquivo e não faz parte da roda */
 const SOBRA = ['stand', 'plane', 'floor', 'ground', 'pedestal'];
 
@@ -175,8 +183,9 @@ export default function Roda({ className }) {
         roda.add(interno);
 
         const medida = new THREE.Box3().setFromObject(cena).getSize(new THREE.Vector3());
-        if (medida.x <= medida.y && medida.x <= medida.z) cena.rotation.y = Math.PI / 2;
-        else if (medida.y <= medida.z) cena.rotation.x = -Math.PI / 2;
+        if (medida.x <= medida.y && medida.x <= medida.z) cena.rotation.y = (FACE * Math.PI) / 2;
+        else if (medida.y <= medida.z) cena.rotation.x = (-FACE * Math.PI) / 2;
+        else if (FACE < 0) cena.rotation.y = Math.PI;
 
         /* --- centro e escala, medidos DEPOIS de girar --- */
         cena.updateMatrixWorld(true);
