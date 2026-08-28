@@ -332,19 +332,22 @@
 .cp-foto {
   position: absolute;
   inset: 0;
-  background: url('/cena/parede-pneus.webp') center / cover no-repeat;
+  /* o carro vermelho no box: a foto já traz as duas cores da marca, o
+     vermelho da lataria e o preto da oficina, então o véu por cima
+     precisa fazer pouco */
+  background: url('/cena/box-vermelho.webp') center 58% / cover no-repeat;
   will-change: transform;
 }
 .cp-veu {
   position: absolute;
   inset: 0;
-  opacity: 0.42;
+  opacity: 0.34;
   background: linear-gradient(
     180deg,
-    rgba(16, 18, 21, 0.84) 0%,
-    rgba(16, 18, 21, 0.36) 34%,
-    rgba(16, 18, 21, 0.72) 64%,
-    rgba(16, 18, 21, 0.97) 100%
+    rgba(16, 18, 21, 0.8) 0%,
+    rgba(16, 18, 21, 0.24) 32%,
+    rgba(16, 18, 21, 0.66) 66%,
+    rgba(16, 18, 21, 0.96) 100%
   );
 }
 
