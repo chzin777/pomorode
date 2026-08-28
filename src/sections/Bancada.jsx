@@ -18,7 +18,7 @@ import { SISTEMA_PONTOS } from '../dados.js';
 const ICONE = [CalendarDays, Users, FileText, Receipt, BellRing, Link2];
 
 const PECAS = [
-  { peca: 'bateria', x: '84%', y: '-8%', w: '19%', mov: 0.7, rot: 9, op: 0.48, bl: 0, balanca: 'b' },
+  { peca: 'bateria', x: '84%', y: '-8%', w: '19%', mov: 0.7, rot: 9, op: 0.48, bl: 0, balanca: 'b' , fica: true},
   { peca: 'oleo', x: '-5%', y: '64%', w: '13%', mov: 1.1, rot: -18, op: 0.52, bl: 0, balanca: 'a' },
 ];
 

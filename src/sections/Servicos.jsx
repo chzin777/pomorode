@@ -24,7 +24,7 @@ import { VITRINE, MARCA } from '../dados.js';
    óleo é o carro-chefe da casa. Ficam nas margens, onde o texto não
    passa, e apagadas onde passa. */
 const PECAS = [
-  { peca: 'bateria', x: '-6%', y: '4%', w: '20%', mov: 0.5, rot: -12, op: 0.52, bl: 0, balanca: 'a' },
+  { peca: 'bateria', x: '-6%', y: '4%', w: '20%', mov: 0.5, rot: -12, op: 0.52, bl: 0, balanca: 'a' , fica: true},
   { peca: 'oleo', x: '86%', y: '30%', w: '15%', mov: 1.1, rot: 14, op: 0.66, bl: 0, balanca: 'b' },
 ];
 

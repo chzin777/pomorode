@@ -715,7 +715,13 @@
   color: #6d5b4c;
 }
 
-/* --------------------------- responsivo -------------------------- */
+/* --------------------------- responsivo --------------------------
+
+   A bancada é tela de trabalho: no balcão ela abre no computador, mas
+   quem está no box abre no celular, com luva e uma mão só. Então o
+   celular não ganha uma versão reduzida — ganha os mesmos comandos com
+   alvo de polegar.
+   ------------------------------------------------------------------ */
 
 @media (max-width: 1120px) {
   .painel-grade {
@@ -728,20 +734,87 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .lado {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 20;
     height: auto;
     grid-template-rows: auto auto;
+    gap: 12px;
+    padding: 12px 14px;
     border-right: 0;
     border-bottom: 1px solid var(--linha-fraca);
   }
+  .lado-marca {
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+  .lado-logo {
+    width: 120px;
+  }
+  /* o menu vira trilho horizontal, com a rolagem encaixando em cada
+     item para não parar no meio de um rótulo */
   .lado-menu {
     grid-auto-flow: column;
     grid-auto-columns: max-content;
     overflow-x: auto;
-    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    margin-inline: -14px;
+    padding-inline: 14px;
+  }
+  .lado-menu::-webkit-scrollbar {
+    display: none;
+  }
+  .lado-menu button {
+    scroll-snap-align: start;
+    min-height: 44px;
+    white-space: nowrap;
   }
   .lado-pe {
     display: none;
+  }
+
+  .palco {
+    padding: 18px 14px 88px;
+  }
+  .palco-topo {
+    align-items: flex-start;
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+  }
+  .palco-topo > div:last-child {
+    width: 100%;
+  }
+  .palco-topo .btn {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .kpi {
+    padding: 14px;
+  }
+  .kpi b {
+    font-size: 1.24rem;
+  }
+
+  .bloco-topo {
+    flex-wrap: wrap;
+  }
+  .busca {
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .linha {
+    padding: 12px 10px;
   }
   .linha-os {
     grid-template-columns: 70px minmax(0, 1fr) 92px;
@@ -756,6 +829,122 @@
   .linha-cli > *:nth-child(3),
   .linha-cli > *:nth-child(4) {
     display: none;
+  }
+  .linha-nota {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+  .linha-nota > *:nth-child(4) {
+    display: none;
+  }
+
+  /* a agenda continua inteira e rola na horizontal: cortar dias ou
+     boxes esconderia justamente o buraco livre que se procura nela */
+  .agenda {
+    grid-template-columns: 44px repeat(6, minmax(112px, 1fr));
+  }
+  .agenda-rolagem {
+    margin-inline: -14px;
+    padding-inline: 14px;
+  }
+  .agenda-nav b {
+    min-width: 0;
+    flex: 1;
+    text-align: center;
+    font-size: 0.86rem;
+  }
+  .agenda-nav {
+    width: 100%;
+  }
+  .agenda-nav button {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* a janela vira folha de baixo para cima, encostada no rodapé */
+  .veu {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .janela {
+    width: 100%;
+    max-height: 94svh;
+    border-radius: 18px 18px 0 0;
+    border-bottom: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .janela-corpo {
+    max-height: none;
+    flex: 1;
+  }
+  .janela-pe {
+    flex-wrap: wrap;
+    gap: 10px;
+    /* a barra do navegador come o rodapé em iPhone */
+    padding-bottom: max(15px, env(safe-area-inset-bottom));
+  }
+  .janela-pe .btn {
+    flex: 1;
+    min-height: 46px;
+  }
+  .escolha {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .carrinho-linha {
+    grid-template-columns: 66px minmax(0, 1fr) auto;
+    row-gap: 8px;
+  }
+  .carrinho-linha > *:last-child {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 560px) {
+  .kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .grade2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .agenda {
+    grid-template-columns: 40px repeat(6, minmax(104px, 1fr));
+  }
+  .legenda {
+    gap: 10px 16px;
+  }
+  .recibo-topo {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .recibo-numero {
+    text-align: left;
+  }
+  .recibo-logo {
+    width: 170px;
+  }
+  /* a tabela do recibo não cabe em cinco colunas num celular */
+  .recibo-tabela th:nth-child(3),
+  .recibo-tabela td:nth-child(3),
+  .recibo-tabela th:nth-child(4),
+  .recibo-tabela td:nth-child(4) {
+    display: none;
+  }
+}
+
+/* Zoom do iOS: o Safari amplia a página sozinho quando o campo em foco
+   tem letra abaixo de 16px, e a tela nunca mais volta ao lugar. */
+@media (max-width: 900px) {
+  .campo input,
+  .campo select,
+  .campo textarea,
+  .busca input {
+    font-size: 16px;
+  }
+  .fechar,
+  .qtd button {
+    width: 40px;
+    height: 40px;
   }
 }
 

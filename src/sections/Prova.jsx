@@ -23,7 +23,7 @@ import { DEPOIMENTOS, MARCA, PROVA } from '../dados.js';
    ============================================================ */
 
 const PECAS = [
-  { peca: 'pneu', x: '-12%', y: '14%', w: '30%', mov: 0.45, rot: -6, op: 0.48, bl: 1, balanca: 'a' },
+  { peca: 'pneu', x: '-12%', y: '14%', w: '30%', mov: 0.45, rot: -6, op: 0.48, bl: 1, balanca: 'a' , fica: true},
   { peca: 'lampada', x: '92%', y: '4%', w: '12%', mov: 1.2, rot: 28, op: 0.63, bl: 0, balanca: 'b' },
 ];
 

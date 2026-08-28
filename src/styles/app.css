@@ -225,8 +225,8 @@
 }
 .nv-burger {
   display: none;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   border-radius: var(--r-pill);
@@ -240,6 +240,8 @@
   top: calc(var(--h-tarja) + 78px);
   left: 12px;
   right: 12px;
+  max-height: calc(100svh - var(--h-tarja) - 96px);
+  overflow-y: auto;
   display: grid;
   gap: 2px;
   padding: 10px;
@@ -251,9 +253,12 @@
   color: #fff;
 }
 .nv-gaveta a {
-  padding: 14px 15px;
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 16px;
   border-radius: var(--r-sm);
-  font-size: 1rem;
+  font-size: 1.02rem;
 }
 .nv-gaveta a:last-child {
   color: var(--vermelho-claro);
@@ -1048,8 +1053,8 @@
 /* o botão do zap, sempre à mão */
 .zap {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
   z-index: 60;
   display: grid;
   place-items: center;
@@ -1081,11 +1086,19 @@
 
 /* ============================================================
    RESPONSIVO
+
+   Quatro degraus, e cada um resolve uma coisa que quebra de verdade:
+
+   1080  as grades de duas colunas viram uma só
+    900  o menu vira gaveta e a barra encolhe
+    760  a página assume que é celular: uma peça flutuante por seção,
+         botões da largura da tela, tipografia por vw
+    420  aparelho pequeno, onde 8vw de título vira letra de rodapé
    ============================================================ */
 
 @media (max-width: 1080px) {
   .cp {
-    height: 200vh;
+    height: 190vh;
   }
   .cp-pe {
     justify-content: center;
@@ -1106,6 +1119,16 @@
   }
   .pr-nota {
     position: static;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    justify-items: start;
+  }
+  .pr-nota p {
+    justify-self: start;
+  }
+  .pr-nota .btn {
+    margin-top: 0;
+    justify-self: end;
   }
   .sv-linha {
     grid-template-columns: 74px minmax(0, 1fr) auto;
@@ -1115,47 +1138,160 @@
     grid-row: 2;
     margin-top: 8px;
   }
-  .sv-abre p {
-    padding-left: calc(74px + clamp(14px, 2.4vw, 40px));
-  }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .nv-links {
     display: none;
   }
   .nv-burger {
     display: grid;
   }
+  .nav {
+    padding: 8px 8px 8px 14px;
+  }
+  .nv-marca {
+    height: 28px;
+  }
+  .nav .btn {
+    padding: 0.62rem 1rem;
+    font-size: 0.86rem;
+  }
   .bc-kpis {
     grid-template-columns: 1fr;
   }
+  .pr-nota {
+    grid-template-columns: auto 1fr;
+    row-gap: 6px;
+  }
+  .pr-nota .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
 }
 
+/* ------------------------------ celular ------------------------------ */
+
 @media (max-width: 760px) {
+  :root {
+    --h-tarja: 30px;
+  }
+  /* O trilho do portão encurta: com 240vh a pessoa rolava quase três
+     telas antes de chegar no primeiro serviço, e no celular isso é
+     tempo demais de dedo antes de qualquer informação. */
+  .cp {
+    height: 160vh;
+  }
+  /* a fresta deita: alta e estreita ela ficava um vão de elevador, e
+     a foto que abre é horizontal */
+  .cp-portao {
+    clip-path: inset(
+      calc(var(--abertura) * (50% - 21vh)) calc(var(--abertura) * max(8%, 50% - 150px)) round
+        calc(var(--abertura) * 18px)
+    );
+  }
+  .cp-corpo {
+    padding: calc(var(--h-tarja) + 78px) var(--pad) 18px;
+  }
+  .cp-linha i {
+    font-size: clamp(2.1rem, 11vw, 3.6rem);
+  }
+  .cp-pe {
+    gap: 16px;
+  }
+  .cp-acoes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cp-acoes .btn {
+    width: 100%;
+  }
+  .cp-nota {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+    padding-top: 14px;
+    text-align: center;
+  }
+  .cp-desce {
+    display: none;
+  }
+
   .pr-vozes {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .pr-voz-lead blockquote {
+    font-size: 1.24rem;
+  }
+
+  /* os botões de seção ocupam a linha: alvo de polegar, não de ponteiro */
+  .sv-pe .btn,
+  .bx-preso .btn,
+  .ag-cartao .btn,
+  .bc-grade .btn {
+    width: 100%;
+  }
+  .ag-cartao .cp-acoes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tarja b {
+    font-size: 0.64rem;
+    gap: 16px;
+    padding-right: 16px;
+  }
+
+  .rp-dentro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .rp-marca {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .rp-links {
+    gap: 14px 20px;
+  }
+
+  /* o botão do zap sobe: no rodapé ele cobria os links */
+  .zap {
+    right: 14px;
+    bottom: 14px;
+    width: 50px;
+    height: 50px;
+  }
+  .zap svg {
+    width: 23px;
+    height: 23px;
   }
 }
 
 @media (max-width: 620px) {
   .sv-linha {
     grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
   }
   .sv-cod {
     grid-column: 1 / -1;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .sv-resumo {
     grid-column: 1 / -1;
     grid-row: auto;
   }
-  .sv-abre p {
-    padding-left: 0;
-  }
   .bx-etapa {
     grid-template-columns: minmax(0, 1fr);
     gap: 10px;
+  }
+  .bx-n {
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: baseline;
+    gap: 12px;
   }
   .ag-bloco {
     grid-template-columns: minmax(0, 1fr);
@@ -1166,6 +1302,72 @@
   }
   .bc-linha b {
     grid-column: 1 / -1;
+  }
+  .pr-nota {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+  .pr-nota p,
+  .pr-nota .btn {
+    justify-self: center;
+  }
+  .pr-pe {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+/* --------------------------- aparelho pequeno --------------------------- */
+
+@media (max-width: 420px) {
+  .cp-linha i {
+    font-size: clamp(1.9rem, 12.5vw, 3rem);
+  }
+  .cp-sub {
+    font-size: 0.94rem;
+  }
+  .nv-marca {
+    height: 24px;
+  }
+  .nav .btn span {
+    display: none;
+  }
+  .titulo {
+    font-size: clamp(1.9rem, 9.6vw, 3rem);
+  }
+  .sv-nome {
+    font-size: 1.15rem;
+  }
+  .sv-item {
+    padding: 18px 0;
+  }
+  .pr-voz {
+    padding: 20px 18px;
+  }
+  .bc-tela,
+  .ag-cartao {
+    border-radius: 14px;
+  }
+}
+
+/* Tela baixa e deitada: o portão de 100svh não cabe com o título e os
+   botões dentro. A fresta abre de uma vez e o hero vira um cartaz. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .cp {
+    height: auto;
+  }
+  .cp-fixo {
+    position: static;
+    height: auto;
+    min-height: 100svh;
+  }
+  .cp-portao {
+    clip-path: none;
+  }
+  .cp-corpo {
+    padding-block: 92px 24px;
   }
 }
 

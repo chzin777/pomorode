@@ -30,7 +30,7 @@ const SAIDA = 1.05;
    Elas saem junto com o centro, antes de a chapa subir: peça sobrando
    sobre a página já aberta denunciaria que a cortina é uma camada. */
 const PECAS = [
-  { peca: 'pneu', x: '-14%', y: '4%', w: '30%', mov: 0.5, rot: -8, op: 0.5, balanca: 'a' },
+  { peca: 'pneu', x: '-14%', y: '4%', w: '30%', mov: 0.5, rot: -8, op: 0.5, balanca: 'a' , fica: true},
   { peca: 'bateria', x: '80%', y: '62%', w: '26%', mov: 0.8, rot: 12, op: 0.45, balanca: 'b' },
   { peca: 'aditivo', x: '4%', y: '70%', w: '15%', mov: 0.9, rot: 16, op: 0.45, balanca: 'a' },
 ];

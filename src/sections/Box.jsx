@@ -22,7 +22,7 @@ import { ETAPAS, MARCA } from '../dados.js';
    brilho do vidro da lâmpada e do plástico do aditivo, e é o único
    lugar da página onde elas podem subir de opacidade sem atrapalhar. */
 const PECAS = [
-  { peca: 'lampada', x: '-4%', y: '58%', w: '17%', mov: 1.2, rot: 22, op: 0.9, bl: 0, balanca: 'b' },
+  { peca: 'lampada', x: '-4%', y: '58%', w: '17%', mov: 1.2, rot: 22, op: 0.9, bl: 0, balanca: 'b' , fica: true},
   { peca: 'aditivo', x: '88%', y: '6%', w: '14%', mov: 0.6, rot: -14, op: 0.9, bl: 0, balanca: 'a' },
 ];
 

@@ -14,7 +14,7 @@ import { HORARIOS, MARCA } from '../dados.js';
    ============================================================ */
 
 const PECAS = [
-  { peca: 'aditivo', x: '-4%', y: '10%', w: '15%', mov: 0.9, rot: 12, op: 0.59, bl: 0, balanca: 'a' },
+  { peca: 'aditivo', x: '-4%', y: '10%', w: '15%', mov: 0.9, rot: 12, op: 0.59, bl: 0, balanca: 'a' , fica: true},
   { peca: 'lampada', x: '46%', y: '76%', w: '11%', mov: 1.3, rot: -24, op: 0.52, bl: 0, balanca: 'b' },
 ];
 

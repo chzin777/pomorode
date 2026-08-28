@@ -57,9 +57,9 @@ export default function Nav() {
         </nav>
 
         <div className="nv-acoes">
-          <a className="btn" href={MARCA.whatsapp} target="_blank" rel="noreferrer">
+          <a className="btn" href={MARCA.whatsapp} target="_blank" rel="noreferrer" aria-label="agendar no whatsapp">
             <MessageCircle />
-            agendar
+            <span>agendar</span>
           </a>
           <button
             className="nv-burger"

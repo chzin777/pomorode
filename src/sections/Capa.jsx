@@ -30,7 +30,7 @@ import { MARCA, PROVA } from '../dados.js';
 
 /* as peças cruzam a fresta enquanto ela ainda está fechada */
 const PECAS = [
-  { peca: 'lampada', x: '4%', y: '12%', w: '11%', mov: 1.2, rot: 26, op: 0.85, balanca: 'b' },
+  { peca: 'lampada', x: '4%', y: '12%', w: '11%', mov: 1.2, rot: 26, op: 0.85, balanca: 'b' , fica: true},
   { peca: 'bateria', x: '80%', y: '64%', w: '17%', mov: 0.6, rot: 10, op: 0.8, balanca: 'a' },
   { peca: 'aditivo', x: '86%', y: '10%', w: '10%', mov: 1, rot: -14, op: 0.8, balanca: 'a' },
 ];
@@ -71,12 +71,18 @@ export default function Capa() {
       linha
         .to('.cp-fixo', { '--abertura': 0, duration: 0.7, ease: 'none' }, 0)
         .fromTo('.cp-foto', { scale: 1.14 }, { scale: 1, duration: 0.7, ease: 'none' }, 0)
-        /* as metades do título se afastam para a foto passar entre elas */
-        .to('.cp-l1', { xPercent: -30, duration: 0.7, ease: 'none' }, 0)
-        .to('.cp-l2', { xPercent: 30, duration: 0.7, ease: 'none' }, 0)
         .to('.cp-veu', { opacity: 0.92, duration: 0.7, ease: 'none' }, 0)
         .to('.cp-sub, .cp-nota, .cp-desce', { opacity: 0, duration: 0.24, ease: 'none' }, 0.1)
         .to('.cp-banda', { yPercent: 12, duration: 1, ease: 'none' }, 0);
+
+      /* As metades do título só se afastam onde há largura para isso.
+         No celular elas sairiam da tela e o que ficaria visível é meia
+         palavra de cada lado — então lá o título fica parado, e quem se
+         abre é só a foto. */
+      gsap.matchMedia().add('(min-width: 761px)', () => {
+        linha.to('.cp-l1', { xPercent: -30, duration: 0.7, ease: 'none' }, 0);
+        linha.to('.cp-l2', { xPercent: 30, duration: 0.7, ease: 'none' }, 0);
+      });
     },
     { scope: raiz },
   );

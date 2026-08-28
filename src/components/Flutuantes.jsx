@@ -85,13 +85,14 @@ export function useFlutuantes(raiz, forca = 26) {
  *   op    opacidade final
  *   bl    desfoque em px, para empurrar a peça para o fundo
  *   balanca  'a' | 'b' | undefined — qual gingado, se algum
+ *   fica  a única que sobrevive no celular, onde não há fundo sobrando
  */
 export default function Flutuantes({ pecas, className = '' }) {
   return (
     <div className={`flutuantes ${className}`} aria-hidden="true">
       {pecas.map((p, i) => (
         <span
-          className={`fl${p.balanca ? ` fl-${p.balanca}` : ''}`}
+          className={`fl${p.balanca ? ` fl-${p.balanca}` : ''}${p.fica ? ' fl-fica' : ''}`}
           key={`${p.peca}-${i}`}
           style={{
             left: p.x,
