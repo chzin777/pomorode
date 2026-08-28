@@ -56,24 +56,18 @@ const PRIMEIRO_SLOT = 7 * 60 + 30;
 const ALTURA_SLOT = 30; // px por 30 minutos
 const px = (min) => ((min - PRIMEIRO_SLOT) / 30) * ALTURA_SLOT;
 
-function Marca() {
+/* O mesmo logotipo da landing. Na lateral escura entra a versão de
+   tinta branca; no recibo, que sai em papel, a colorida. */
+function Marca({ className, escura = false }) {
   return (
-    <svg width="28" height="28" viewBox="0 0 40 40" aria-hidden="true">
-      <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" strokeOpacity=".22" />
-      <path
-        d="M7 25.5c1.4-6.6 6.4-11 13-11s11.6 4.4 13 11"
-        fill="none"
-        stroke="#d02f31"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M9.5 29.5h21c.9 0 1.3-1 .7-1.6l-4.4-4.1a4 4 0 00-2.7-1.05h-8.2a4 4 0 00-2.7 1.05L8.8 27.9c-.6.6-.2 1.6.7 1.6z"
-        fill="#1b62c4"
-      />
-      <circle cx="14" cy="30" r="2.2" fill="currentColor" />
-      <circle cx="26" cy="30" r="2.2" fill="currentColor" />
-    </svg>
+    <img
+      className={className}
+      src={escura ? '/marca/logo-branca.webp' : '/marca/logo.webp'}
+      alt="Pomerode Auto Center"
+      width="505"
+      height="215"
+      decoding="async"
+    />
   );
 }
 
@@ -133,13 +127,8 @@ export default function Sistema() {
       <aside className="lado">
         <div>
           <div className="lado-marca">
-            <Marca />
-            <div>
-              <b style={{ display: 'block', fontFamily: 'var(--display)', fontSize: '.92rem', letterSpacing: '-.03em' }}>
-                Pomerode Auto Center
-              </b>
-              <span className="placa">bancada · v1</span>
-            </div>
+            <Marca className="lado-logo" escura />
+            <span className="placa">bancada · v1</span>
           </div>
 
           <nav className="lado-menu" style={{ marginTop: 16 }}>
@@ -1641,11 +1630,8 @@ function JanelaRecibo({ base, id, fechar }) {
       <div className="recibo">
         <div className="recibo-topo">
           <div className="recibo-marca">
-            <Marca />
-            <div>
-              <b>{MARCA.nome}</b>
-              <span>{MARCA.razao}</span>
-            </div>
+            <Marca className="recibo-logo" />
+            <span>{MARCA.razao}</span>
           </div>
           <div className="recibo-numero">
             <span>ordem de serviço</span>

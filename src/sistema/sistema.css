@@ -35,11 +35,14 @@
 }
 
 .lado-marca {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  gap: 8px;
   padding: 4px 6px 16px;
   border-bottom: 1px solid var(--linha-fraca);
+}
+.lado-logo {
+  width: 150px;
+  height: auto;
 }
 
 .lado-menu {
@@ -571,17 +574,13 @@
   border-bottom: 2px solid #0c1116;
 }
 .recibo-marca {
-  display: flex;
-  align-items: center;
-  gap: 11px;
+  display: grid;
+  gap: 8px;
   color: #0c1116;
 }
-.recibo-marca b {
-  display: block;
-  font-family: var(--display);
-  font-size: 1.12rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+.recibo-logo {
+  width: 210px;
+  height: auto;
 }
 .recibo-marca span {
   font-family: var(--mono);

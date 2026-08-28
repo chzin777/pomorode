@@ -1,24 +1,22 @@
 /* Os desenhos que voltam em várias seções. Ficam num arquivo só porque
    são a identidade — mudar o arco aqui muda a página inteira. */
 
-/** O logo reduzido ao mínimo que ainda se lê: arco vermelho, carro claro. */
-export function Marca({ className }) {
+/** O logotipo da loja, recortado do arquivo deles.
+
+    Duas versões do mesmo desenho: a colorida para fundo claro e a de
+    tinta branca para fundo escuro. Trocar por CSS (filter: invert)
+    estragaria o vermelho e o amarelo junto com o preto, então são dois
+    arquivos — o peso somado é menor que o de um ícone de fonte. */
+export function Marca({ className, escura = false, alt = 'Pomerode Auto Center' }) {
   return (
-    <svg className={className} viewBox="0 0 40 40" aria-hidden="true">
-      <path
-        d="M7 25.5c1.4-6.6 6.4-11 13-11s11.6 4.4 13 11"
-        fill="none"
-        stroke="#e5342f"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-      />
-      <path
-        d="M9.5 29.5h21c.9 0 1.3-1 .7-1.6l-4.4-4.1a4 4 0 0 0-2.7-1.05h-8.2a4 4 0 0 0-2.7 1.05L8.8 27.9c-.6.6-.2 1.6.7 1.6z"
-        fill="currentColor"
-      />
-      <circle cx="14" cy="30" r="2.2" fill="currentColor" />
-      <circle cx="26" cy="30" r="2.2" fill="currentColor" />
-    </svg>
+    <img
+      className={className}
+      src={escura ? '/marca/logo-branca.webp' : '/marca/logo.webp'}
+      alt={alt}
+      width="505"
+      height="215"
+      decoding="async"
+    />
   );
 }
 

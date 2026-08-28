@@ -66,26 +66,17 @@
   text-align: center;
   padding: 0 24px;
 }
+.ab-logo {
+  width: clamp(220px, 42vw, 400px);
+  height: auto;
+}
 .ab-marca {
-  width: clamp(120px, 22vw, 190px);
+  width: clamp(120px, 24vw, 210px);
 }
 .ab-marca path {
   stroke-width: 4;
   stroke-dasharray: 240;
   stroke-dashoffset: 240;
-}
-.ab-simbolo {
-  width: clamp(46px, 7vw, 64px);
-  color: #fff;
-}
-.ab-nome {
-  font-family: var(--display);
-  font-weight: 900;
-  font-size: clamp(1.5rem, 4.6vw, 2.9rem);
-  line-height: 0.94;
-  letter-spacing: -0.05em;
-  text-transform: lowercase;
-  color: #fff;
 }
 .ab-rot {
   font-family: var(--mono);
@@ -182,32 +173,28 @@
 }
 
 .nv-marca {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-.nv-marca svg {
-  width: 30px;
-  height: 30px;
-  flex-shrink: 0;
-}
-.nv-nome {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 0.92rem;
-  letter-spacing: -0.035em;
-  line-height: 1;
-  text-transform: lowercase;
-}
-.nv-sub {
+  position: relative;
   display: block;
-  margin-top: 3px;
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.6;
+  flex-shrink: 0;
+  height: 34px;
+  aspect-ratio: 505 / 215;
+}
+.nv-logo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.5s var(--ease);
+}
+.nv-logo-escura {
+  opacity: 0;
+}
+.nav[data-escuro='1'] .nv-logo-clara {
+  opacity: 0;
+}
+.nav[data-escuro='1'] .nv-logo-escura {
+  opacity: 1;
 }
 
 .nv-links {
@@ -1034,6 +1021,16 @@
   justify-content: space-between;
   gap: 16px;
 }
+.rp-marca {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.rp-logo {
+  height: 32px;
+  width: auto;
+}
+
 .rp-links {
   display: flex;
   flex-wrap: wrap;

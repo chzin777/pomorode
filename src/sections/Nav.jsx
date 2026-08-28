@@ -40,12 +40,12 @@ export default function Nav() {
   return (
     <>
       <header className="nav" ref={raiz} data-escuro={escuro ? '1' : '0'} data-preso={preso ? '1' : '0'}>
+        {/* as duas versões vivem juntas e o CSS mostra a que combina com
+            a faixa por baixo: alternar por estado faria a imagem recarregar
+            toda vez que a barra trocasse de pele */}
         <a className="nv-marca" href="#topo" aria-label={MARCA.nome}>
-          <Marca />
-          <span>
-            <span className="nv-nome">pomerode auto center</span>
-            <span className="nv-sub">{MARCA.endereco}</span>
-          </span>
+          <Marca className="nv-logo nv-logo-clara" />
+          <Marca className="nv-logo nv-logo-escura" escura alt="" />
         </a>
 
         <nav className="nv-links">

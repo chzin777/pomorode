@@ -118,8 +118,7 @@ export default function Abertura({ aoFechar }) {
 
     gsap
       .timeline({ defaults: { ease: 'power3.out' } })
-      .from('.ab-simbolo', { scale: 0.7, opacity: 0, duration: 0.7 }, 0)
-      .from('.ab-nome', { y: 26, opacity: 0, duration: 0.8 }, 0.12)
+      .from('.ab-logo', { y: 22, scale: 0.94, opacity: 0, duration: 0.9 }, 0)
       /* o arco se desenha: a assinatura da marca sendo escrita */
       .to('.ab-marca path', { strokeDashoffset: 0, duration: 0.9, ease: 'power2.inOut' }, 0.2)
       .from('.ab-rot', { opacity: 0, duration: 0.6 }, 0.5)
@@ -148,13 +147,8 @@ export default function Abertura({ aoFechar }) {
       <Flutuantes pecas={PECAS} />
 
       <div className="ab-centro">
-        <Marca className="ab-simbolo" />
+        <Marca className="ab-logo" escura />
         <Arco className="ab-marca" />
-        <p className="ab-nome">
-          pomerode
-          <br />
-          auto center
-        </p>
         <p className="ab-rot">{MARCA.cidade}</p>
       </div>
     </div>
