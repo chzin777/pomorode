@@ -257,9 +257,9 @@ export default function Roda({ className }) {
       gsap.fromTo(
         roda.scale,
         { x: 0.55, y: 0.55, z: 0.55 },
-        { x: 1, y: 1, z: 1, duration: 1.7, ease: 'expo.out', delay: 1.9 },
+        { x: 1, y: 1, z: 1, duration: 1.7, ease: 'expo.out', delay: 1.35 },
       );
-      gsap.fromTo(host, { opacity: 0 }, { opacity: 1, duration: 1.3, ease: 'power2.out', delay: 1.8 });
+      gsap.fromTo(host, { opacity: 0 }, { opacity: 1, duration: 1.3, ease: 'power2.out', delay: 1.3 });
     } else {
       roda.rotation.y = -0.32;
       roda.rotation.z = -0.35;

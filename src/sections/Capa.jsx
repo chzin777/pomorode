@@ -34,7 +34,7 @@ export default function Capa() {
       if (!entrou.current) {
         entrou.current = true;
         gsap
-          .timeline({ delay: 2.15, defaults: { ease: 'power4.out' } })
+          .timeline({ delay: 1.55, defaults: { ease: 'power4.out' } })
           .from('.cp-rot', { y: 14, opacity: 0, duration: 0.7 })
           /* cada linha do título sobe de dentro da própria janela */
           .from('.cp-linha i', { yPercent: 112, duration: 1, stagger: 0.07 }, 0.08)
