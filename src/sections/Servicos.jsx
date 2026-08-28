@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { gsap, useGSAP, prefersReduced } from '../lib/anim.js';
-import { SERVICOS, MARCA, brl } from '../dados.js';
+import { SERVICOS, MARCA } from '../dados.js';
 
 /* ============================================================
    SERVIÇOS — a lista de fachada.
@@ -9,7 +9,12 @@ import { SERVICOS, MARCA, brl } from '../dados.js';
    Uma linha por serviço, no tamanho de placa. O detalhe abre no lugar,
    sem tirar a pessoa da lista e sem abrir janela.
 
-   O código à esquerda (TRO-OL, PNE-MO) não é enfeite: é a mesma chave
+   A lista é a que a loja publica no WhatsApp, inteira. O que aparece à
+   direita é TEMPO DE BOX, não preço: a tabela real muda por peça e por
+   carro, e preço errado numa página vira discussão no balcão. Quem
+   quer o número pede pelo WhatsApp e recebe na hora.
+
+   O código à esquerda (TRO-OL, GEO-BA) não é enfeite: é a mesma chave
    que a bancada usa na ordem de serviço e imprime no recibo. Quem
    recebe o papel reconhece a linha que leu aqui.
    ============================================================ */
@@ -50,18 +55,19 @@ export default function Servicos() {
   );
 
   return (
-    <section className="secao faixa-clara" id="servicos" data-claro="1" ref={raiz}>
+    <section className="secao faixa-clara" id="servicos" ref={raiz}>
       <div className="dentro">
         <div className="sv-topo">
           <p className="rotulo surge">
-            oito códigos <b>—</b> os mesmos que saem no seu recibo
+            catorze códigos <b>—</b> os mesmos que saem no seu recibo
           </p>
           <h2 className="titulo surge">
-            o que entra no box, e <em>quanto custa</em> antes de você perguntar.
+            tudo que entra no box, e <em>quanto tempo</em> cada coisa leva.
           </h2>
           <p className="texto surge">
-            Preço de partida por serviço, publicado. O orçamento fechado sai depois do checklist,
-            mas você chega sabendo a ordem de grandeza — e sem precisar ligar para descobrir.
+            O tempo é o de box mesmo, medido aqui. O preço sai no orçamento, item por item, porque
+            depende da peça e do carro — e a gente prefere errar para menos na promessa do que na
+            conta.
           </p>
         </div>
 
@@ -73,10 +79,8 @@ export default function Servicos() {
                 <h3 className="sv-nome">{s.nome}</h3>
                 <p className="sv-resumo">{s.resumo}</p>
                 <p className="sv-preco">
-                  <b>{brl(s.preco)}</b>
-                  <span>
-                    {s.unidade} · {s.box} min de box
-                  </span>
+                  <b>{s.box} min</b>
+                  <span>de box · {s.unidade}</span>
                 </p>
               </div>
 
@@ -91,8 +95,8 @@ export default function Servicos() {
 
         <div className="sv-pe surge">
           <p className="texto">
-            Não achou o seu caso? Manda a placa e o que está sentindo — a gente responde com a
-            faixa de preço antes de você sair de casa.
+            Não achou o seu caso? Manda a placa e o que está sentindo — a gente responde com o
+            preço e o horário livre antes de você sair de casa.
           </p>
           <a className="btn" href={MARCA.whatsapp} target="_blank" rel="noreferrer">
             <MessageCircle />

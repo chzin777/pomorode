@@ -67,11 +67,13 @@ export default function Roda({ className }) {
     contra.position.set(-5, -1.5, -4);
     scene.add(contra);
 
-    const azul = new THREE.PointLight(0x2f74e8, 58, 22);
-    azul.position.set(-3.4, 2.6, 3.2);
-    scene.add(azul);
+    /* refletor frio de um lado, brasa vermelha do outro: as duas cores
+       da marca fazendo o trabalho da luz, em vez de tingir o metal */
+    const frio = new THREE.PointLight(0xeaf2ff, 52, 22);
+    frio.position.set(-3.4, 2.6, 3.2);
+    scene.add(frio);
 
-    const rubi = new THREE.PointLight(0xe5342f, 34, 20);
+    const rubi = new THREE.PointLight(0xe0231f, 40, 20);
     rubi.position.set(3.6, -2.4, 2.4);
     scene.add(rubi);
 
@@ -92,7 +94,7 @@ export default function Roda({ className }) {
       envMapIntensity: 0.9,
     });
     const ferro = new THREE.MeshStandardMaterial({ color: 0x4a4f56, roughness: 0.62, metalness: 0.85 });
-    const pinca = new THREE.MeshStandardMaterial({ color: 0xe5342f, roughness: 0.34, metalness: 0.5 });
+    const pinca = new THREE.MeshStandardMaterial({ color: 0xe0231f, roughness: 0.34, metalness: 0.5 });
 
     const roda = new THREE.Group();
     scene.add(roda);
@@ -176,11 +178,11 @@ export default function Roda({ className }) {
     const anelTampa = new THREE.Mesh(
       new THREE.TorusGeometry(0.4, 0.022, 12, 48),
       new THREE.MeshStandardMaterial({
-        color: 0x2f74e8,
+        color: 0xe0231f,
         roughness: 0.3,
         metalness: 0.6,
-        emissive: 0x0d2f60,
-        emissiveIntensity: 0.45,
+        emissive: 0x4a0b09,
+        emissiveIntensity: 0.5,
       }),
     );
     anelTampa.position.z = 0.515;

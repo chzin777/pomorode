@@ -90,12 +90,12 @@ function semente() {
   });
 
   const ordens = [
-    os(1041, clientes[0], [item('TRO-OL'), item('ALI-BA')], 52100, 214, 'fechada', 'Éder'),
+    os(1041, clientes[0], [item('TRO-OL'), item('GEO-BA')], 52100, 214, 'fechada', 'Éder'),
     os(1058, clientes[2], [item('HIG-AR'), item('LAM-FA')], 96400, 178, 'fechada', 'Jonas'),
-    os(1072, clientes[4], [item('REF-SU'), item('ALI-BA')], 81200, 140, 'fechada', 'Willian'),
-    os(1089, clientes[1], [item('RDA-LL'), item('PNE-MO', 4)], 34600, 96, 'fechada', 'Tiago'),
+    os(1072, clientes[4], [item('RDA-RF'), item('GEO-BA')], 81200, 140, 'fechada', 'Willian'),
+    os(1089, clientes[1], [item('RDA-ES'), item('PNE-MO', 4)], 34600, 96, 'fechada', 'Tiago'),
     os(1104, clientes[3], [item('TRO-OL'), item('ADI-TV')], 18400, 58, 'fechada', 'Éder'),
-    os(1118, clientes[0], [item('PNE-MO', 2), item('ALI-BA')], 60800, 22, 'fechada', 'Jonas'),
+    os(1118, clientes[0], [item('PNE-MO', 2), item('GEO-BA')], 60800, 22, 'fechada', 'Jonas'),
     os(1126, clientes[2], [item('TRO-OL')], 104200, 3, 'aberta', 'Willian'),
     os(1127, clientes[4], [item('LAM-FA'), item('ADI-TV')], 88300, 1, 'aberta', 'Tiago'),
   ];
@@ -126,7 +126,7 @@ function semente() {
 
   const agendamentos = [
     marcar(0, '08:00', clientes[0], ['TRO-OL'], 1, 'concluido'),
-    marcar(0, '09:30', clientes[3], ['ALI-BA'], 2, 'concluido'),
+    marcar(0, '09:30', clientes[3], ['GEO-BA'], 2, 'concluido'),
     marcar(1, '07:30', clientes[2], ['TRO-OL', 'ADI-TV'], 1, 'chegou'),
     marcar(1, '10:00', null, ['PNE-MO'], 3, 'marcado', {
       nome: 'Ivo Reitz',
@@ -136,13 +136,13 @@ function semente() {
     }),
     marcar(2, '08:30', clientes[4], ['LAM-FA'], 2, 'marcado'),
     marcar(2, '14:00', clientes[1], ['HIG-AR'], 1, 'marcado'),
-    marcar(3, '09:00', null, ['REF-SU'], 3, 'marcado', {
+    marcar(3, '09:00', null, ['RDA-RF'], 3, 'marcado', {
       nome: 'Sandra Wippel',
       telefone: '(47) 98120-6644',
       veiculo: 'Ford Ka 2018',
       placa: 'NBQ8J14',
     }),
-    marcar(4, '07:30', clientes[0], ['ALI-BA', 'PNE-MO'], 2, 'marcado'),
+    marcar(4, '07:30', clientes[0], ['GEO-BA', 'PNE-MO'], 2, 'marcado'),
     marcar(4, '15:30', clientes[3], ['TRO-OL'], 1, 'marcado'),
     marcar(5, '08:00', clientes[2], ['HIG-AR'], 1, 'marcado'),
   ];

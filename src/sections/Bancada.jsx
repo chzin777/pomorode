@@ -50,7 +50,7 @@ export default function Bancada() {
   );
 
   return (
-    <section className="secao faixa-gelo" id="bancada" data-claro="1" ref={raiz}>
+    <section className="secao faixa-clara" id="bancada" ref={raiz}>
       <div className="dentro bc-grade">
         <div>
           <p className="rotulo surge">a oficina por dentro</p>
@@ -111,7 +111,7 @@ export default function Bancada() {
             <div className="bc-linha">
               <code>09:30 · B2</code>
               <span>Rodrigo M. · Compass · QJD7B08</span>
-              <b>RDA-LL</b>
+              <b>RDA-ES</b>
             </div>
             <div className="bc-linha">
               <code>NFS-e</code>

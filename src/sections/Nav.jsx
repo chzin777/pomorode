@@ -7,15 +7,16 @@ import { MARCA, MENU } from '../dados.js';
 /* ============================================================
    A NAV.
 
-   Uma pílula só, que troca de pele conforme a faixa por baixo. Cada
-   seção clara se anuncia com data-claro="1" e a barra inverte a tinta
-   ao passar por ela — em vez de a barra adivinhar cor lendo o pixel,
-   que é caro e erra em toda transição.
+   Uma pílula só, que troca de pele conforme a faixa por baixo. A
+   página é clara na maior parte, então a barra nasce branca; cada
+   seção escura se anuncia com data-escuro="1" e a barra inverte ao
+   passar por ela — em vez de adivinhar a cor lendo o pixel, que é caro
+   e erra em toda transição.
    ============================================================ */
 
 export default function Nav() {
   const raiz = useRef(null);
-  const [claro, setClaro] = useState(false);
+  const [escuro, setEscuro] = useState(false);
   const [preso, setPreso] = useState(false);
   const [gaveta, setGaveta] = useState(false);
 
@@ -26,19 +27,19 @@ export default function Nav() {
       onToggle: (self) => setPreso(self.isActive),
     });
 
-    document.querySelectorAll('[data-claro="1"]').forEach((el) => {
+    document.querySelectorAll('[data-escuro="1"]').forEach((el) => {
       ScrollTrigger.create({
         trigger: el,
         start: 'top 76px',
         end: 'bottom 76px',
-        onToggle: (self) => setClaro(self.isActive),
+        onToggle: (self) => setEscuro(self.isActive),
       });
     });
   }, []);
 
   return (
     <>
-      <header className="nav" ref={raiz} data-claro={claro ? '1' : '0'} data-preso={preso ? '1' : '0'}>
+      <header className="nav" ref={raiz} data-escuro={escuro ? '1' : '0'} data-preso={preso ? '1' : '0'}>
         <a className="nv-marca" href="#topo" aria-label={MARCA.nome}>
           <Marca />
           <span>

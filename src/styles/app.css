@@ -30,7 +30,7 @@
   left: 0;
   right: 0;
   height: 50.5%;
-  background: linear-gradient(180deg, #0d47bd, #072f8a);
+  background: var(--preto);
   will-change: transform;
 }
 .ab-chapa.cima {
@@ -38,7 +38,7 @@
 }
 .ab-chapa.baixo {
   bottom: 0;
-  background: linear-gradient(0deg, #0d47bd, #072f8a);
+  background: var(--preto);
 }
 /* o vinco de chapa dobrada, onde as metades se encostam */
 .ab-chapa.cima::after,
@@ -106,7 +106,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--grafite);
+  background: var(--preto);
   color: #fff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -162,18 +162,20 @@
   gap: 18px;
   padding: 10px 10px 10px 18px;
   border-radius: var(--r-pill);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(12, 17, 22, 0.66);
+  border: 1px solid var(--linha-escura);
+  background: rgba(255, 255, 255, 0.86);
   -webkit-backdrop-filter: blur(16px) saturate(1.35);
   backdrop-filter: blur(16px) saturate(1.35);
-  color: #fff;
+  color: var(--sobre-claro);
   transition: background 0.5s var(--ease), border-color 0.5s var(--ease),
     color 0.5s var(--ease), translate 0.45s var(--ease);
 }
-.nav[data-claro='1'] {
-  background: rgba(255, 255, 255, 0.84);
-  border-color: var(--linha-escura);
-  color: var(--sobre-claro);
+/* sobre a faixa preta a pílula vira preta: pílula branca ali brigaria
+   com o próprio fundo do box */
+.nav[data-escuro='1'] {
+  background: rgba(16, 18, 21, 0.76);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #fff;
 }
 .nav[data-preso='1'] {
   top: 12px;
@@ -286,7 +288,21 @@
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
   align-items: stretch;
   overflow: hidden;
-  background: var(--azul-fundo);
+  background: var(--ceu);
+}
+/* as três listras do logo, deitadas na divisa das duas metades: é o
+   único lugar onde o amarelo aparece grande, e mesmo assim em 6px */
+.cp::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(51% - 3px);
+  z-index: 4;
+  width: 6px;
+  background: var(--preto);
+  box-shadow: -9px 0 0 var(--vermelho), -18px 0 0 var(--amarelo);
+  pointer-events: none;
 }
 
 /* a coluna do texto */
@@ -298,7 +314,7 @@
   justify-items: start;
   gap: 26px;
   padding: calc(var(--h-tarja) + 118px) clamp(24px, 4vw, 68px) 72px var(--pad);
-  color: #fff;
+  color: var(--sobre-claro);
   will-change: transform;
 }
 
@@ -310,7 +326,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--sobre-claro-tenue);
 }
 .cp-rot i {
   width: 7px;
@@ -343,23 +359,23 @@
 .cp-h1 em {
   font-style: normal;
   position: relative;
-  color: #fff;
+  color: var(--vermelho);
 }
 /* o arco por cima da palavra que importa: o gesto do logo virando
    sublinhado invertido */
 .cp-arco {
   position: absolute;
-  left: -2%;
-  right: -2%;
-  bottom: 88%;
-  height: 0.42em;
+  left: -1%;
+  right: -1%;
+  bottom: 84%;
+  height: 0.34em;
 }
 
 .cp-sub {
   max-width: 46ch;
   font-size: clamp(1.02rem, 1.2vw, 1.18rem);
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.84);
+  color: var(--sobre-claro-fraco);
 }
 
 .cp-acoes {
@@ -374,7 +390,7 @@
   align-items: center;
   gap: 14px;
   padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--linha-escura);
   width: 100%;
   max-width: 440px;
 }
@@ -388,7 +404,7 @@
 .cp-estrelas {
   display: flex;
   gap: 2px;
-  color: #ffc531;
+  color: #e8a11c;
 }
 .cp-estrelas svg {
   width: 13px;
@@ -400,7 +416,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.64);
+  color: var(--sobre-claro-tenue);
   margin-top: 4px;
 }
 
@@ -408,7 +424,7 @@
 .cp-cena {
   position: relative;
   overflow: hidden;
-  background: radial-gradient(78% 60% at 50% 34%, #1b2836 0%, #0c1116 62%);
+  background: var(--preto);
 }
 /* grade do piso do box, em fuga */
 .cp-piso {
@@ -435,7 +451,7 @@
 }
 .cp-moldura .arco path {
   stroke-width: 2;
-  stroke: rgba(229, 52, 47, 0.55);
+  stroke: rgba(224, 35, 31, 0.6);
 }
 
 .cp-roda {
@@ -666,7 +682,7 @@
   padding: clamp(22px, 2.4vw, 32px);
   border-radius: var(--r);
   border: 1px solid var(--linha-fraca);
-  background: linear-gradient(180deg, var(--grafite-3), var(--grafite-2));
+  background: var(--preto-2);
   will-change: transform, opacity;
 }
 .bx-n {
@@ -720,7 +736,7 @@
   gap: 16px;
   padding: 16px 22px;
   border-radius: var(--r-pill);
-  border: 1px solid var(--linha);
+  border: 1px solid var(--borda-tinta);
 }
 .pr-selo b {
   font-family: var(--display);
@@ -741,8 +757,8 @@
   gap: 24px;
   padding: 30px 28px;
   border-radius: var(--r);
-  border: 1px solid var(--linha);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--borda-tinta);
+  background: var(--branco);
   will-change: transform, opacity;
 }
 .pr-voz blockquote {
@@ -758,7 +774,7 @@
   justify-content: space-between;
   gap: 14px;
   padding-top: 18px;
-  border-top: 1px solid var(--linha);
+  border-top: 1px solid var(--borda-tinta);
 }
 .pr-pe b {
   display: block;
@@ -777,7 +793,7 @@
 .pr-estrelas {
   display: flex;
   gap: 2px;
-  color: #ffc531;
+  color: #e8a11c;
   flex-shrink: 0;
 }
 .pr-estrelas svg {
@@ -789,7 +805,7 @@
 /* a curva de texto que passa por baixo das vozes */
 .pr-curva {
   margin-top: clamp(40px, 6vw, 80px);
-  color: rgba(255, 255, 255, 0.16);
+  color: rgba(16, 18, 21, 0.09);
 }
 .pr-curva .curved-loop-jacket {
   min-height: 180px;
@@ -849,7 +865,7 @@
 .bc-tela {
   border-radius: var(--r);
   border: 1px solid var(--linha-escura);
-  background: var(--grafite);
+  background: var(--preto);
   overflow: hidden;
   box-shadow: 0 50px 90px -56px rgba(5, 32, 92, 0.8);
   will-change: transform;
@@ -860,7 +876,7 @@
   gap: 8px;
   padding: 12px 15px;
   border-bottom: 1px solid var(--linha-fraca);
-  background: var(--grafite-2);
+  background: var(--preto-2);
 }
 .bc-barra i {
   width: 9px;
@@ -889,7 +905,7 @@
   padding: 14px;
   border-radius: var(--r-sm);
   border: 1px solid var(--linha-fraca);
-  background: var(--grafite-2);
+  background: var(--preto-2);
 }
 .bc-kpi span {
   font-family: var(--mono);
@@ -982,18 +998,26 @@
   gap: 20px;
   padding: clamp(30px, 3.6vw, 48px);
   border-radius: var(--r);
-  background: linear-gradient(158deg, #0d47bd 0%, #072f8a 52%, #05205c 100%);
+  background: var(--preto);
   color: #fff;
 }
+/* as listras do logo, no canto do cartão. Substituíram um círculo
+   borrado: mancha de cor é enfeite, a listra é a marca. */
 .ag-cartao::after {
   content: '';
   position: absolute;
-  right: -90px;
-  top: -90px;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(229, 52, 47, 0.55), transparent 66%);
+  right: 26px;
+  top: -20px;
+  width: 86px;
+  height: 150px;
+  background: repeating-linear-gradient(
+    72deg,
+    var(--amarelo) 0 9px,
+    var(--vermelho) 9px 18px,
+    #fff 18px 27px,
+    transparent 27px 44px
+  );
+  opacity: 0.9;
 }
 .ag-cartao > * {
   position: relative;
@@ -1010,7 +1034,7 @@
 .rp {
   padding: 34px var(--pad);
   border-top: 1px solid var(--linha-fraca);
-  background: var(--grafite);
+  background: var(--preto);
   color: #fff;
 }
 .rp-dentro {
@@ -1079,6 +1103,11 @@
   .cp {
     grid-template-columns: minmax(0, 1fr);
     min-height: auto;
+  }
+  /* empilhado não existe divisa vertical para marcar; a listra deitada
+     na horizontal viraria enfeite solto, então ela some */
+  .cp::after {
+    display: none;
   }
   .cp-cena {
     order: -1;

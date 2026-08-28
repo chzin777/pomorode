@@ -2,15 +2,21 @@
    POMERODE AUTO CENTER — landing
    Comply Inc.
 
-   A marca é azul cheio com um ARCO vermelho por cima do carro. Esse
-   arco é o gesto da página inteira: ele volta como moldura da cena,
-   como divisa entre faixas e como sublinhado do que importa. Uma
-   forma só, repetida com disciplina, no lugar de seis enfeites.
+   Paleta tirada do logotipo, não de um humor: a silhueta do carro é
+   PRETA, o arco por dentro e a assinatura "auto center" são
+   VERMELHOS, e as três listras diagonais antes do P trazem o
+   AMARELO. O azul não é cor de marca — é o céu atrás dela, e no logo
+   ele aparece em degradê. Aqui entra chapado: degradê de fundo é
+   ruído numa página que já tem cena, e some assim que a foto vira
+   captura de tela.
 
-   A página alterna faixas — azul cheio, branco, grafite de box — e a
-   tinta troca junto, redefinindo os tokens dentro da faixa em vez de
-   trocar cor a cor. É o que faz todo componente continuar usando os
-   mesmos nomes em qualquer fundo.
+   Então a hierarquia é: preto estrutura, vermelho aponta, amarelo
+   pontua, azul claro respira. Branco é o descanso entre eles.
+
+   A página alterna faixas — céu, branco, preto — e a tinta troca
+   junto, redefinindo os tokens dentro da faixa em vez de trocar cor a
+   cor. É o que faz todo componente continuar usando os mesmos nomes em
+   qualquer fundo.
 
    CONTRATO DE PERFORMANCE:
    1. Nenhuma custom property escrita no :root por quadro. Isso invalida
@@ -23,11 +29,11 @@
 @import 'tw-animate-css';
 
 @theme {
-  --color-azul: #0b3fa8;
-  --color-azul-claro: #2f74e8;
-  --color-vermelho: #e5342f;
-  --color-grafite: #0c1116;
-  --color-gelo: #eef3fa;
+  --color-preto: #101215;
+  --color-ceu: #d8ebfa;
+  --color-vermelho: #e0231f;
+  --color-amarelo: #f5c518;
+  --color-gelo: #f2f5f8;
 
   --font-sans: 'Barlow', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
@@ -37,39 +43,40 @@
 :root {
   color-scheme: light;
 
-  /* azuis da marca */
-  --azul: #0b3fa8;
-  --azul-fundo: #0d47bd;
-  --azul-claro: #2f74e8;
-  --azul-tinta: #05205c;
+  /* o carro: preto de traço grosso, com dois degraus para superfície */
+  --preto: #101215;
+  --preto-2: #191c21;
+  --preto-3: #242a32;
 
-  /* o arco */
-  --vermelho: #e5342f;
-  --vermelho-claro: #ff5a52;
+  /* o arco e a assinatura */
+  --vermelho: #e0231f;
+  --vermelho-claro: #f4453f;
 
-  /* o fosso do box */
-  --grafite: #0c1116;
-  --grafite-2: #141a21;
-  --grafite-3: #1d242c;
+  /* a listra do meio. Entra em dose pequena: amarelo em área grande
+     vira placa de trânsito e rouba o vermelho. */
+  --amarelo: #f5c518;
 
-  /* claros */
+  /* o céu atrás do logo, chapado em três degraus */
+  --ceu: #d8ebfa;
+  --ceu-claro: #eaf4fd;
+  --ceu-forte: #a9d5f2;
+
   --branco: #ffffff;
-  --gelo: #eef3fa;
-  --gelo-2: #dde7f4;
+  --gelo: #f2f5f8;
 
-  /* Sobre azul e sobre grafite a tinta é branca; sobre branco é o azul
-     escuro. Os três pares vivem juntos porque a página alterna faixas. */
-  --sobre-azul: #ffffff;
-  --sobre-azul-fraco: rgba(255, 255, 255, 0.86);
-  --sobre-azul-tenue: rgba(255, 255, 255, 0.62);
+  /* Sobre preto a tinta é branca; sobre céu e sobre branco é o preto do
+     carro. Os dois pares vivem juntos porque a página alterna faixas. */
+  --sobre-escuro: #ffffff;
+  --sobre-escuro-fraco: rgba(255, 255, 255, 0.82);
+  --sobre-escuro-tenue: rgba(255, 255, 255, 0.55);
 
-  --sobre-claro: #05205c;
-  --sobre-claro-fraco: rgba(5, 32, 92, 0.7);
-  --sobre-claro-tenue: rgba(5, 32, 92, 0.44);
+  --sobre-claro: #101215;
+  --sobre-claro-fraco: rgba(16, 18, 21, 0.68);
+  --sobre-claro-tenue: rgba(16, 18, 21, 0.45);
 
-  --linha: rgba(255, 255, 255, 0.22);
-  --linha-fraca: rgba(255, 255, 255, 0.1);
-  --linha-escura: rgba(5, 32, 92, 0.14);
+  --linha: rgba(255, 255, 255, 0.18);
+  --linha-fraca: rgba(255, 255, 255, 0.09);
+  --linha-escura: rgba(16, 18, 21, 0.14);
 
   --sans: 'Barlow', ui-sans-serif, system-ui, sans-serif;
   --display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
@@ -86,7 +93,6 @@
 
   --cam: 0;
   --cam-z: 0px;
-  --abre: 0%;
 }
 
 html.travado {
@@ -114,26 +120,30 @@ body {
   color: #fff;
 }
 .skip {
-  background: var(--azul);
+  background: var(--preto);
   color: #fff;
 }
 
-/* ---------- as faixas ---------- */
+/* ---------- as faixas ----------
 
-.faixa-azul {
-  background: var(--azul-fundo);
-  color: var(--sobre-azul);
-  --tinta: var(--sobre-azul);
-  --tinta-fraca: var(--sobre-azul-fraco);
-  --tinta-tenue: var(--sobre-azul-tenue);
-  --borda-tinta: var(--linha);
+   Cada faixa redefine a tinta, e não a cor de cada peça. É o que faz
+   um mesmo botão ou rótulo continuar legível em céu, branco ou preto
+   sem uma variante por fundo. */
+
+.faixa-ceu {
+  background: var(--ceu);
+  color: var(--sobre-claro);
+  --tinta: var(--sobre-claro);
+  --tinta-fraca: var(--sobre-claro-fraco);
+  --tinta-tenue: var(--sobre-claro-tenue);
+  --borda-tinta: var(--linha-escura);
 }
-.faixa-grafite {
-  background: var(--grafite);
-  color: var(--sobre-azul);
-  --tinta: var(--sobre-azul);
-  --tinta-fraca: var(--sobre-azul-fraco);
-  --tinta-tenue: var(--sobre-azul-tenue);
+.faixa-preta {
+  background: var(--preto);
+  color: var(--sobre-escuro);
+  --tinta: var(--sobre-escuro);
+  --tinta-fraca: var(--sobre-escuro-fraco);
+  --tinta-tenue: var(--sobre-escuro-tenue);
   --borda-tinta: var(--linha-fraca);
 }
 .faixa-clara {
@@ -155,13 +165,32 @@ body {
 
 /* ---------- primitivas ---------- */
 
+/* O rótulo de seção carrega as três listras que ficam antes do P no
+   logotipo: amarelo, vermelho e a cor da tinta. É o marcador da marca
+   ocupando o lugar onde toda landing põe um ponto ou um traço. */
 .rotulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--mono);
   font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tinta-tenue, var(--sobre-claro-tenue));
+}
+.rotulo::before {
+  content: '';
+  flex-shrink: 0;
+  width: 16px;
+  height: 13px;
+  background: repeating-linear-gradient(
+    72deg,
+    var(--amarelo) 0 3px,
+    var(--vermelho) 3px 6px,
+    var(--tinta, var(--sobre-claro)) 6px 9px,
+    transparent 9px 14px
+  );
 }
 .rotulo b {
   color: var(--vermelho);
@@ -237,7 +266,7 @@ body {
 }
 .btn.branco {
   background: #fff;
-  color: var(--azul-tinta);
+  color: var(--preto);
   border-color: #fff;
 }
 .btn.branco:hover {
@@ -246,8 +275,9 @@ body {
   box-shadow: 0 16px 42px -14px rgba(0, 0, 0, 0.4);
 }
 
-/* O ARCO. A forma do logo, virada elemento de página: meia elipse de
-   traço grosso, sempre vermelha, sempre por cima de alguma coisa. */
+/* O ARCO. Dentro da silhueta do carro, no logotipo, corre uma linha
+   vermelha acompanhando o teto. É ela aqui: meia elipse de traço
+   grosso, sempre vermelha, sempre por cima de alguma coisa. */
 .arco {
   display: block;
   width: 100%;

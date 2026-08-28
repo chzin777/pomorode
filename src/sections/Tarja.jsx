@@ -11,7 +11,7 @@ export default function Tarja() {
             {TARJA.map((t) => (
               <b key={t}>
                 {t}
-                <i>◆</i>
+                <i>//</i>
               </b>
             ))}
           </span>

@@ -48,7 +48,7 @@ export default function Prova() {
   );
 
   return (
-    <section className="secao faixa-azul" id="prova" ref={raiz}>
+    <section className="secao faixa-ceu" id="prova" ref={raiz}>
       <div className="dentro">
         <div className="pr-topo">
           <div>
@@ -93,7 +93,7 @@ export default function Prova() {
           decoração assumida, então fica em tinta quase transparente:
           quem lê, lê o depoimento; quem olha, vê a marca. */}
       <div className="pr-curva" aria-hidden="true">
-        <CurvedLoop marqueeText="seu carro merece ◆ você merece ◆ " speed={1.4} curveAmount={260} interactive={false} />
+        <CurvedLoop marqueeText="seu carro merece // você merece // " speed={1.4} curveAmount={260} interactive={false} />
       </div>
     </section>
   );

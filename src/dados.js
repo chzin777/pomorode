@@ -51,21 +51,83 @@ export const HORARIOS = [
   ['domingo', 'fechado'],
 ];
 
+/* A lista é a que a própria loja publica no WhatsApp, na ordem em que
+   eles contam. Nada aqui foi inventado: se não está na descrição
+   deles, não está na página.
+
+   `preco` é referência interna da bancada, para a ordem de serviço
+   somar. A landing NÃO publica preço: a tabela real muda por peça e
+   por carro, e número errado numa página vira discussão no balcão. */
 export const SERVICOS = [
+  {
+    codigo: 'BAT-TR',
+    nome: 'bateria',
+    resumo: 'teste de carga na hora e troca com a marca certa para o seu carro.',
+    detalhe:
+      'Antes de vender bateria a gente mede a que está no carro: muita troca é alternador ou parasita de corrente, não bateria velha. Se for troca mesmo, a nova sai instalada e a antiga fica com a gente para descarte.',
+    preco: 589,
+    unidade: 'unidade',
+    box: 20,
+    ciclo: 0,
+  },
   {
     codigo: 'TRO-OL',
     nome: 'troca de óleo',
-    resumo: 'óleo sintético e filtro, com o intervalo anotado para o próximo.',
+    resumo: 'óleo e filtro na especificação do fabricante, com o próximo já anotado.',
     detalhe:
-      'O óleo entra pela viscosidade que o fabricante do seu carro pede, não pelo que sobrou na prateleira. Sai daqui com a quilometragem da próxima troca escrita na ficha.',
+      'O óleo entra pela viscosidade que o manual do seu carro pede, não pelo que sobrou na prateleira. Sai daqui com a quilometragem da próxima troca escrita na ficha, e a gente lembra você no mês certo.',
     preco: 289.9,
     unidade: 'serviço',
     box: 40,
     ciclo: 10000,
   },
   {
+    codigo: 'FIL-TR',
+    nome: 'filtros',
+    resumo: 'óleo, combustível, ar do motor e ar-condicionado.',
+    detalhe:
+      'Os quatro filtros do carro, trocados juntos ou separados. O de cabine é o que ninguém lembra e é o que você respira: quando ele satura, o ar sai fraco e com cheiro.',
+    preco: 149.9,
+    unidade: 'por filtro',
+    box: 25,
+    ciclo: 10000,
+  },
+  {
+    codigo: 'HIG-AR',
+    nome: 'higienização do ar-condicionado',
+    resumo: 'tira o cheiro de mofo e o que estava respirando junto.',
+    detalhe:
+      'Limpeza da caixa evaporadora, troca do filtro de cabine e produto que mata fungo em vez de perfumar por cima. A diferença aparece no primeiro dia de calor.',
+    preco: 219.9,
+    unidade: 'serviço',
+    box: 50,
+    ciclo: 20000,
+  },
+  {
+    codigo: 'LAM-FA',
+    nome: 'lâmpadas',
+    resumo: 'troca, alinhamento do facho e farol que voltou a iluminar.',
+    detalhe:
+      'Farol opaco tira metade do alcance à noite. Troca da lâmpada, alinhamento do facho e polimento da lente quando o plástico já amarelou.',
+    preco: 89.9,
+    unidade: 'par',
+    box: 30,
+    ciclo: 0,
+  },
+  {
+    codigo: 'GEO-BA',
+    nome: 'cambagem, geometria e balanceamento',
+    resumo: 'direção reta, volante centrado, pneu gastando por igual.',
+    detalhe:
+      'Se o carro puxa para um lado ou o volante treme acima dos 80, é aqui que resolve. Cambagem e geometria das quatro rodas, balanceamento roda a roda, com a leitura antes e depois na ficha.',
+    preco: 189.9,
+    unidade: 'serviço',
+    box: 45,
+    ciclo: 10000,
+  },
+  {
     codigo: 'PNE-MO',
-    nome: 'pneus e montagem',
+    nome: 'pneus',
     resumo: 'venda, montagem e descarte do usado, na mesma passada.',
     detalhe:
       'Montagem com máquina que não maltrata a roda, calibragem conferida e o pneu velho descartado por nós. Atendemos carro elétrico, que pesa mais e come pneu de outro jeito.',
@@ -75,52 +137,74 @@ export const SERVICOS = [
     ciclo: 0,
   },
   {
-    codigo: 'RDA-LL',
-    nome: 'rodas de liga leve',
+    codigo: 'CAM-AR',
+    nome: 'câmaras',
+    resumo: 'câmara nova para quem ainda roda com ela.',
+    detalhe:
+      'Utilitário, implemento agrícola, carreta e roda antiga continuam pedindo câmara. Temos em estoque e trocamos na hora, sem encomendar de fora.',
+    preco: 119.9,
+    unidade: 'unidade',
+    box: 25,
+    ciclo: 0,
+  },
+  {
+    codigo: 'PNE-CO',
+    nome: 'consertos de pneus e rodas',
+    resumo: 'furo, vazamento pelo aro e o pneu que amanhece murcho.',
+    detalhe:
+      'Nem todo pneu murcho é prego. Muitas vezes é o talão vazando pela borda da roda, e aí trocar o pneu não resolve nada. A gente acha onde está saindo antes de vender qualquer coisa.',
+    preco: 60,
+    unidade: 'por roda',
+    box: 30,
+    ciclo: 0,
+  },
+  {
+    codigo: 'RDA-ES',
+    nome: 'rodas esportivas',
     resumo: 'aro novo, com prova no carro antes de fechar.',
     detalhe:
-      'Catálogo de aro de liga leve com prova no seu carro antes de fechar negócio. Em até 10 vezes sem juros no cartão, montagem inclusa.',
+      'Catálogo de roda esportiva com prova no seu carro antes de fechar negócio. Montagem e balanceamento entram no pacote, e o pneu que já era seu volta calibrado.',
     preco: 1890,
     unidade: 'jogo',
     box: 60,
     ciclo: 0,
   },
   {
-    codigo: 'ALI-BA',
-    nome: 'alinhamento e balanceamento',
-    resumo: 'direção reta, volante centrado, pneu gastando por igual.',
+    codigo: 'RDA-RF',
+    nome: 'reforma de rodas',
+    resumo: 'roda torta, raspada ou descascada volta redonda e pintada.',
     detalhe:
-      'Se o carro puxa para um lado ou o volante treme acima dos 80, é aqui que resolve. Geometria das quatro rodas, com a leitura antes e depois impressa na ficha.',
-    preco: 149.9,
-    unidade: 'serviço',
-    box: 45,
-    ciclo: 10000,
-  },
-  {
-    codigo: 'HIG-AR',
-    nome: 'higienização do ar',
-    resumo: 'tira o cheiro de mofo e o que estava respirando junto.',
-    detalhe:
-      'Limpeza da caixa evaporadora, troca do filtro de cabine e produto que mata fungo em vez de perfumar por cima. Sente diferença no primeiro dia de calor.',
-    preco: 219.9,
-    unidade: 'serviço',
-    box: 50,
-    ciclo: 20000,
-  },
-  {
-    codigo: 'LAM-FA',
-    nome: 'lâmpadas e faróis',
-    resumo: 'troca, alinhamento do facho e polimento do farol amarelado.',
-    detalhe:
-      'Farol opaco tira metade do alcance à noite. Troca da lâmpada, alinhamento do facho e polimento da lente quando o plástico já amarelou.',
-    preco: 89.9,
-    unidade: 'par',
-    box: 30,
+      'Desempeno da roda amassada no buraco, lixamento da borda raspada no meio-fio e pintura. Sai mais barato do que jogo novo, e o balanceamento depois é por nossa conta.',
+    preco: 320,
+    unidade: 'por roda',
+    box: 90,
     ciclo: 0,
   },
   {
+    codigo: 'RDA-SO',
+    nome: 'solda de rodas',
+    resumo: 'trinca na roda de liga fechada, não disfarçada.',
+    detalhe:
+      'Roda de liga trincada perde pressão devagar e ninguém descobre até a viagem. A solda é feita com a roda desmontada e testada com pressão antes de voltar para o carro.',
+    preco: 260,
+    unidade: 'por roda',
+    box: 90,
+    ciclo: 0,
+  },
+  {
+    codigo: 'CAL-N2',
+    nome: 'calibragem com nitrogênio',
+    resumo: 'pressão que segura por mais tempo e esquenta menos na estrada.',
+    detalhe:
+      'Nitrogênio atravessa a borracha mais devagar que o ar comum, então a pressão cai menos entre uma calibragem e outra, e varia menos com o calor do asfalto. Faz diferença em quem roda em rodovia.',
+    preco: 40,
+    unidade: 'jogo',
+    box: 15,
+    ciclo: 10000,
+  },
+  {
     codigo: 'ADI-TV',
-    nome: 'aditivos e fluidos',
+    nome: 'aditivos',
     resumo: 'radiador, freio e limpeza de bico, no que o motor pede.',
     detalhe:
       'Aditivo de radiador na cor e na especificação do fabricante, fluido de freio dentro do prazo e limpeza de bico quando o motor falha em marcha lenta.',
@@ -128,17 +212,6 @@ export const SERVICOS = [
     unidade: 'aplicação',
     box: 25,
     ciclo: 20000,
-  },
-  {
-    codigo: 'REF-SU',
-    nome: 'reforma de suspensão',
-    resumo: 'amortecedor, batente e bandeja: o barulho some.',
-    detalhe:
-      'Estalo em lombada e carro que balança depois do quebra-molas é suspensão pedindo socorro. Conjunto completo trocado e o carro volta para o alinhamento antes de sair.',
-    preco: 1450,
-    unidade: 'eixo',
-    box: 180,
-    ciclo: 0,
   },
 ];
 
@@ -187,8 +260,8 @@ export const DEPOIMENTOS = [
   {
     nome: 'Marina H.',
     quando: '11/07/2026',
-    servico: 'REF-SU',
-    texto: 'Levei achando que era a suspensão inteira e era só um batente. Poderiam ter vendido o pacote todo e não venderam.',
+    servico: 'GEO-BA',
+    texto: 'Fui trocar os quatro pneus achando que era desgaste e era a geometria. Corrigiram e só cobraram o serviço.',
   },
   {
     nome: 'Cláudio B.',
@@ -205,8 +278,8 @@ export const DEPOIMENTOS = [
   {
     nome: 'Rodrigo M.',
     quando: '28/03/2026',
-    servico: 'RDA-LL',
-    texto: 'Rodas de liga leve em 10x sem juros e montaram no mesmo dia. O carro ficou outro.',
+    servico: 'RDA-ES',
+    texto: 'Rodas esportivas montadas e balanceadas no mesmo dia. O carro ficou outro.',
   },
 ];
 

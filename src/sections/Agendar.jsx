@@ -32,7 +32,7 @@ export default function Agendar() {
   );
 
   return (
-    <section className="secao faixa-clara" id="agendar" data-claro="1" ref={raiz}>
+    <section className="secao faixa-gelo" id="agendar" ref={raiz}>
       <div className="dentro ag-grade">
         <div>
           <p className="rotulo surge">onde estamos</p>

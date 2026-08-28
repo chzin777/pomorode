@@ -64,7 +64,7 @@ export default function Box() {
   );
 
   return (
-    <section className="secao faixa-grafite" id="box" ref={raiz}>
+    <section className="secao faixa-preta" id="box" data-escuro="1" ref={raiz}>
       <div className="dentro bx-grade">
         <div className="bx-preso">
           <p className="rotulo surge">
