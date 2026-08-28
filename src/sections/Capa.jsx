@@ -35,15 +35,13 @@ export default function Capa() {
         entrou.current = true;
         gsap
           .timeline({ delay: 1.55, defaults: { ease: 'power4.out' } })
-          .from('.cp-rot', { y: 14, opacity: 0, duration: 0.7 })
           /* cada linha do título sobe de dentro da própria janela */
-          .from('.cp-linha i', { yPercent: 112, duration: 1, stagger: 0.07 }, 0.08)
+          .from('.cp-linha i', { yPercent: 112, duration: 1, stagger: 0.07 })
           /* o arco cresce do centro. Desenhar traço exigiria o DrawSVG,
              que é do Club GSAP; escala a partir do meio dá o mesmo
              gesto sem plugin pago. */
           .from('.cp-arco', { scaleX: 0, opacity: 0, transformOrigin: '50% 100%', duration: 0.8 }, 0.7)
-          .from('.cp-sub, .cp-acoes, .cp-prova', { y: 18, opacity: 0, duration: 0.75, stagger: 0.08 }, 0.5)
-          .from('.cp-tag', { opacity: 0, y: 14, duration: 0.6, stagger: 0.1 }, 0.9);
+          .from('.cp-sub, .cp-acoes, .cp-prova', { y: 18, opacity: 0, duration: 0.75, stagger: 0.08 }, 0.5);
       }
 
       /* --- ponteiro: a cena responde, o texto responde menos --- */
@@ -107,11 +105,6 @@ export default function Capa() {
     <section className="cp" id="topo" ref={raiz}>
       {/* ---------- metade chapada ---------- */}
       <div className="cp-texto" data-plano="0.35">
-        <p className="cp-rot">
-          <i aria-hidden="true" />
-          {MARCA.cidade} · desde a primeira troca de óleo
-        </p>
-
         <h1 className="cp-h1">
           <span className="cp-linha">
             <i>seu carro</i>
@@ -160,21 +153,18 @@ export default function Capa() {
         <div className="cp-piso" aria-hidden="true" />
         <Arco className="cp-moldura" />
         <Roda className="cp-roda" />
-
-        <div className="cp-tag cp-tag-a" data-plano="1.1">
-          <span>roda esportiva</span>
-          <b>até 10x sem juros</b>
-        </div>
-        <div className="cp-tag cp-tag-b" data-plano="0.8">
-          <span>torque de fábrica</span>
-          <b>110 N·m</b>
-        </div>
-
-        <p className="cp-role" aria-hidden="true">
-          role
-          <i />
-        </p>
       </div>
+
+      {/* O indicador é filho da SEÇÃO, não da cena: dentro da metade
+          escura ele centralizava na metade e lia como se estivesse
+          jogado na direita. Aqui ele fica no meio da tela, em cima da
+          divisa das duas metades — e por isso vem em pílula preta, que
+          é o único jeito de ele ser legível nos dois fundos ao mesmo
+          tempo. */}
+      <p className="cp-role" aria-hidden="true">
+        <span>role</span>
+        <i />
+      </p>
     </section>
   );
 }
